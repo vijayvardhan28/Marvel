@@ -1,20 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const MCUContext = createContext();
 
 export const useMCU = () => useContext(MCUContext);
 
 export const MCUProvider = ({ children }) => {
-  const [userData, setUserData] = useState(() => {
-    const saved = localStorage.getItem('mcuTrackerData');
-    return saved ? JSON.parse(saved) : {};
-  });
+  const { currentUser } = useAuth();
+  
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    localStorage.setItem('mcuTrackerData', JSON.stringify(userData));
-  }, [userData]);
+    if (currentUser) {
+      const saved = localStorage.getItem(`mcuTrackerData_${currentUser.id}`);
+      setUserData(saved ? JSON.parse(saved) : {});
+    } else {
+      setUserData({});
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem(`mcuTrackerData_${currentUser.id}`, JSON.stringify(userData));
+    }
+  }, [userData, currentUser]);
 
   const updateItem = (id, data) => {
+    if (!currentUser) return; // Prevent updates if not logged in
     setUserData(prev => ({
       ...prev,
       [id]: {

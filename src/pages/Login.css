@@ -54,8 +54,9 @@
 }
 
 .login-logo {
+  display: block;
+  margin: 0 auto 1.5rem auto;
   height: 40px;
-  margin-bottom: 1.5rem;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(226, 54, 54, 0.3));
 }

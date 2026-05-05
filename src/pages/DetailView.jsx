@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { allMediaData } from '../data/allData';
 import { useMCU } from '../context/MCUContext';
-import { Star, ArrowLeft, CheckCircle, Clock, Tv } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { Star, ArrowLeft, CheckCircle, Clock, Tv, Lock } from 'lucide-react';
 import './DetailView.css';
 
 const DetailView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { userData, updateItem, markWatched, rateItem } = useMCU();
+  const { currentUser } = useAuth();
   
   const item = allMediaData.find(m => m.id === id);
   const itemData = userData[id] || {};
@@ -95,9 +97,10 @@ const DetailView = () => {
             ) : (
               <button 
                 className={`btn-primary watch-toggle-btn ${isWatched ? 'watched' : ''}`}
-                onClick={() => markWatched(id, !isWatched)}
+                onClick={() => currentUser ? markWatched(id, !isWatched) : navigate('/login')}
+                style={!currentUser ? { opacity: 0.7 } : {}}
               >
-                {isWatched ? <><CheckCircle size={20}/> Watched</> : 'Mark as Watched'}
+                {!currentUser ? <><Lock size={20}/> Login to Track</> : isWatched ? <><CheckCircle size={20}/> Watched</> : 'Mark as Watched'}
               </button>
             )}
           </div>
@@ -111,10 +114,13 @@ const DetailView = () => {
                 <Star 
                   key={star}
                   size={32}
-                  className={`star ${star <= (hoverRating || displayRating) ? 'filled' : ''} ${isReadOnlyRating ? 'read-only' : ''}`}
-                  onMouseEnter={() => !isReadOnlyRating && setHoverRating(star)}
-                  onMouseLeave={() => !isReadOnlyRating && setHoverRating(0)}
-                  onClick={() => handleSeriesMainRatingClick(star)}
+                  className={`star ${star <= (hoverRating || displayRating) ? 'filled' : ''} ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
+                  onMouseEnter={() => !isReadOnlyRating && currentUser && setHoverRating(star)}
+                  onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
+                  onClick={() => {
+                    if (!currentUser) return navigate('/login');
+                    handleSeriesMainRatingClick(star);
+                  }}
                 />
               ))}
               <span className="rating-text">
@@ -126,23 +132,32 @@ const DetailView = () => {
 
           <div className="review-section">
             <h3>Your Review</h3>
-            <textarea 
-              className="review-input"
-              placeholder="Write your thoughts here..."
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              rows={4}
-            />
-            <div className="review-actions" style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem'}}>
-              {(itemData.review || (!isSeries && itemData.rating > 0)) && (
-                <button className="btn-outline delete-review-btn" onClick={handleDeleteReview} style={{borderColor: 'var(--color-primary)', color: 'var(--color-primary)'}}>
-                  Delete Review
-                </button>
-              )}
-              <button className="btn-outline save-review-btn" onClick={handleSaveReview} style={{float: 'none'}}>
-                Save Review
-              </button>
-            </div>
+            {!currentUser ? (
+              <div className="login-prompt-box">
+                <Lock size={24} style={{ marginBottom: '0.5rem', color: 'var(--color-primary)' }} />
+                <p>Please <span onClick={() => navigate('/login')} style={{ color: 'var(--color-primary)', cursor: 'pointer', textDecoration: 'underline' }}>log in</span> to track activity, rate, and leave reviews.</p>
+              </div>
+            ) : (
+              <>
+                <textarea 
+                  className="review-input"
+                  placeholder="Write your thoughts here..."
+                  value={review}
+                  onChange={(e) => setReview(e.target.value)}
+                  rows={4}
+                />
+                <div className="review-actions" style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem'}}>
+                  {(itemData.review || (!isSeries && itemData.rating > 0)) && (
+                    <button className="btn-outline delete-review-btn" onClick={handleDeleteReview} style={{borderColor: 'var(--color-primary)', color: 'var(--color-primary)'}}>
+                      Delete Review
+                    </button>
+                  )}
+                  <button className="btn-outline save-review-btn" onClick={handleSaveReview} style={{float: 'none'}}>
+                    Save Review
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Episode List Section */}
@@ -170,17 +185,20 @@ const DetailView = () => {
                             <Star 
                               key={star}
                               size={20}
-                              className={`star ${star <= epRating ? 'filled' : ''}`}
-                              onClick={() => rateItem(ep.id, star === epRating ? 0 : star)} // Click again to clear
+                              className={`star ${star <= epRating ? 'filled' : ''} ${!currentUser ? 'read-only' : ''}`}
+                              onClick={() => {
+                                if (!currentUser) return navigate('/login');
+                                rateItem(ep.id, star === epRating ? 0 : star);
+                              }}
                             />
                           ))}
                         </div>
                         <button 
                           className={`ep-watch-btn ${epWatched ? 'watched' : ''}`}
-                          onClick={() => markWatched(ep.id, !epWatched)}
-                          title={epWatched ? "Mark Unwatched" : "Mark Watched"}
+                          onClick={() => currentUser ? markWatched(ep.id, !epWatched) : navigate('/login')}
+                          title={!currentUser ? "Login to Track" : epWatched ? "Mark Unwatched" : "Mark Watched"}
                         >
-                          <CheckCircle size={24} />
+                          {currentUser ? <CheckCircle size={24} /> : <Lock size={20} />}
                         </button>
                       </div>
                     </div>

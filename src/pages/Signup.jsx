@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Login.css';
+import './Signup.css'; // We'll just reuse most of the styles from Login or create a specific one
 
-const Login = () => {
+const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
     setError('');
-    if (email && password) {
-      const result = login(email, password);
+    
+    if (name && email && password) {
+      const result = signup(name, email, password);
       if (result.success) {
         navigate('/');
       } else {
         setError(result.error);
-        if (result.error === 'User does not exist') {
-          // Provide an immediate prompt to create an account
-          setTimeout(() => navigate('/signup'), 2500); // Redirect after brief delay
-        }
       }
+    } else {
+      setError('Please fill in all fields.');
     }
   };
 
@@ -41,22 +41,25 @@ const Login = () => {
               e.target.src = 'https://cdn.worldvectorlogo.com/logos/marvel.svg';
             }}
           />
-          <h2>Welcome Back, Agent</h2>
-          <p>Sign in to access your MCU database</p>
+          <h2>Join the Initiative</h2>
+          <p>Create an account to track your MCU journey</p>
         </div>
         
-        {error && (
-          <div className="error-message">
-            {error}
-            {error === 'User does not exist' && (
-              <div style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
-                Redirecting to create account...
-              </div>
-            )}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
-        <form onSubmit={handleLogin} className="login-form">
+        <form onSubmit={handleSignup} className="login-form">
+          <div className="input-group">
+            <label htmlFor="name">Agent Name</label>
+            <input 
+              type="text" 
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Phil Coulson"
+              required 
+            />
+          </div>
+
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input 
@@ -64,7 +67,7 @@ const Login = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="fury@shield.gov"
+              placeholder="coulson@shield.gov"
               required 
             />
           </div>
@@ -80,26 +83,18 @@ const Login = () => {
               required 
             />
           </div>
-
-          <div className="form-actions">
-            <label className="remember-me">
-              <input type="checkbox" />
-              <span>Remember me</span>
-            </label>
-            <a href="#" className="forgot-password">Forgot Password?</a>
-          </div>
           
           <button type="submit" className="login-btn">
-            Assemble
+            Register
           </button>
         </form>
 
         <div className="login-footer">
-          <p>Don't have clearance? <Link to="/signup">Request Access</Link></p>
+          <p>Already have clearance? <Link to="/login">Login</Link></p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

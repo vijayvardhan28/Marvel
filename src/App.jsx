@@ -6,18 +6,20 @@ import Timeline from './pages/Timeline';
 import FoxTimeline from './pages/FoxTimeline';
 import DetailView from './pages/DetailView';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import './App.css';
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
     <div className="app-container">
-      {!isLoginPage && <Header />}
-      <main className={isLoginPage ? "login-main" : "main-content"}>
+      {!isAuthPage && <Header />}
+      <main className={isAuthPage ? "login-main" : "main-content"}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/fox" element={<FoxTimeline />} />
