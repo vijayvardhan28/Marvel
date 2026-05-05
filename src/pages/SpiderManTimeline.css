@@ -1,0 +1,83 @@
+/* Spider-Man Timeline specific styles */
+
+.spiderman-gradient {
+  background: linear-gradient(135deg, #e63946, #1d3557);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.spiderman-section {
+  margin-bottom: 3rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.section-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.section-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+}
+
+.raimi-badge {
+  background: linear-gradient(135deg, #e63946, #a8201a);
+  color: white;
+  box-shadow: 0 0 12px rgba(230, 57, 70, 0.5);
+}
+
+.amazing-badge {
+  background: linear-gradient(135deg, #1d3557, #457b9d);
+  color: white;
+  box-shadow: 0 0 12px rgba(29, 53, 87, 0.5);
+}
+
+.verse-badge {
+  background: linear-gradient(135deg, #6d28d9, #db2777);
+  color: white;
+  box-shadow: 0 0 12px rgba(109, 40, 217, 0.5);
+}
+
+.yfnsm-badge {
+  background: linear-gradient(135deg, #065f46, #10b981);
+  color: white;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.delay-4 {
+  animation-delay: 0.3s;
+}
+
+.section-years {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.05em;
+}
+
+.no-results {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 2rem;
+  font-style: italic;
+}

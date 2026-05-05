@@ -589,7 +589,7 @@ export const mcuData = [
   },
   {
     "id": "s9",
-    "title": "She-Hulk: Attorney at Law",
+    "title": "Eww-Hulk: Attorney at Law 🤮",
     "type": "series",
     "releaseDate": "2022-08-18",
     "timelineOrder": 35,
@@ -1041,19 +1041,20 @@ export const mcuData = [
     "id": "m38",
     "title": "Avengers: Doomsday",
     "type": "movie",
-    "releaseDate": "2026-05-01",
-    "timelineOrder": 52,
+    "releaseDate": "2026-12-18",
+    "premiereTime": "2026-12-18T00:00:00-05:00",
+    "timelineOrder": 53,
     "runtime": 150,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BM2E1ZTJiZTgtZGI2Zi00MzAxLThhZjktMmU3M2E3Yzk3NjUxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
   },
   {
     "id": "m39",
-    "title": "Spider-Man 4",
+    "title": "Spider-Man: Brand New Day",
     "type": "movie",
-    "releaseDate": "2026-07-24",
-    "timelineOrder": 53,
+    "releaseDate": "2026-07-31",
+    "timelineOrder": 52,
     "runtime": 135,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNTVhMWExZTEtNDgxYi00YmFhLTgwN2UtYjJiODM0YmMyYmU3XkEyXkFqcGdeQXVyODYyNTgyNjc@._V1_SX300.jpg"
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
   },
   {
     "id": "m40",

@@ -3,8 +3,31 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { allMediaData } from '../data/allData';
 import { useMCU } from '../context/MCUContext';
 import { useAuth } from '../context/AuthContext';
-import { Star, ArrowLeft, CheckCircle, Clock, Tv, Lock } from 'lucide-react';
+import { Star, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer } from 'lucide-react';
 import './DetailView.css';
+
+// Countdown timer hook
+const useCountdown = (targetDate) => {
+  const [timeLeft, setTimeLeft] = useState({});
+
+  useEffect(() => {
+    const calculate = () => {
+      const diff = new Date(targetDate) - new Date();
+      if (diff <= 0) return setTimeLeft(null);
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    };
+    calculate();
+    const interval = setInterval(calculate, 1000);
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return timeLeft;
+};
 
 const DetailView = () => {
   const { id } = useParams();
@@ -26,7 +49,12 @@ const DetailView = () => {
 
   const isSeries = item.type === 'series';
   const isWatched = itemData.watched || false;
-  
+  const isReleased = new Date(item.releaseDate) <= new Date();
+
+  // Countdown target: use item.premiereTime if available, otherwise releaseDate
+  const countdownTarget = item.premiereTime || item.releaseDate;
+  const timeLeft = useCountdown(!isReleased ? countdownTarget : null);
+
   // Dynamic rating logic
   let displayRating = itemData.rating || 0;
   let isReadOnlyRating = false;
@@ -61,6 +89,10 @@ const DetailView = () => {
     }
   };
 
+  const formatFullDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
   return (
     <div className="detail-page animate-fade-in">
       <button className="back-btn" onClick={() => navigate(-1)}>
@@ -81,7 +113,13 @@ const DetailView = () => {
               <h1 className="detail-title">{item.title}</h1>
               <div className="detail-meta" style={{ marginBottom: '2rem' }}>
                 <span className={`type-badge ${item.type}`}>{item.type}</span>
-                <span className="meta-item"><Clock size={16}/> {item.runtime} min</span>
+                {isReleased ? (
+                  <span className="meta-item"><Clock size={16}/> {item.runtime} min</span>
+                ) : (
+                  <span className="meta-item" style={{ color: '#f59e0b' }}>
+                    <Calendar size={16}/> {formatFullDate(item.releaseDate)}
+                  </span>
+                )}
                 <span className="meta-item">Release: {new Date(item.releaseDate).getFullYear()}</span>
               </div>
             </div>
@@ -93,6 +131,14 @@ const DetailView = () => {
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', cursor: 'not-allowed', color: 'var(--color-text-muted)' }}
               >
                 Not a Marvel Series
+              </button>
+            ) : !isReleased ? (
+              <button 
+                className="btn-primary watch-toggle-btn"
+                disabled
+                style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', cursor: 'not-allowed', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.3)' }}
+              >
+                <Calendar size={20}/> Not Released Yet
               </button>
             ) : (
               <button 
@@ -107,61 +153,112 @@ const DetailView = () => {
         </div>
 
         <div className="detail-content">
-          <div className="rating-section">
-            <h3>{isSeries ? 'Overall Series Rating (Avg)' : 'Your Rating'}</h3>
-            <div className="stars-container">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star 
-                  key={star}
-                  size={32}
-                  className={`star ${star <= (hoverRating || displayRating) ? 'filled' : ''} ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
-                  onMouseEnter={() => !isReadOnlyRating && currentUser && setHoverRating(star)}
-                  onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
-                  onClick={() => {
-                    if (!currentUser) return navigate('/login');
-                    handleSeriesMainRatingClick(star);
-                  }}
-                />
-              ))}
-              <span className="rating-text">
-                {displayRating > 0 ? `${displayRating}/5` : 'No ratings yet'}
-              </span>
-            </div>
-            {isSeries && <p className="rating-hint">Series rating is automatically calculated from your episode ratings.</p>}
-          </div>
 
-          <div className="review-section">
-            <h3>Your Review</h3>
-            {!currentUser ? (
-              <div className="login-prompt-box">
-                <Lock size={24} style={{ marginBottom: '0.5rem', color: 'var(--color-primary)' }} />
-                <p>Please <span onClick={() => navigate('/login')} style={{ color: 'var(--color-primary)', cursor: 'pointer', textDecoration: 'underline' }}>log in</span> to track activity, rate, and leave reviews.</p>
+          {/* Countdown Timer for unreleased movies */}
+          {!isReleased && timeLeft && (
+            <div className="countdown-section glass-panel" style={{
+              background: 'linear-gradient(135deg, rgba(245,158,11,0.05), rgba(239,68,68,0.05))',
+              border: '1px solid rgba(245,158,11,0.2)',
+              borderRadius: '16px',
+              padding: '2rem',
+              textAlign: 'center',
+              marginBottom: '2rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                <Timer size={22} style={{ color: '#f59e0b' }} />
+                <h3 style={{ margin: 0, color: '#f59e0b' }}>
+                  {item.premiereTime ? 'Premieres In' : 'Releases In'}
+                </h3>
               </div>
-            ) : (
-              <>
-                <textarea 
-                  className="review-input"
-                  placeholder="Write your thoughts here..."
-                  value={review}
-                  onChange={(e) => setReview(e.target.value)}
-                  rows={4}
-                />
-                <div className="review-actions" style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem'}}>
-                  {(itemData.review || (!isSeries && itemData.rating > 0)) && (
-                    <button className="btn-outline delete-review-btn" onClick={handleDeleteReview} style={{borderColor: 'var(--color-primary)', color: 'var(--color-primary)'}}>
-                      Delete Review
-                    </button>
-                  )}
-                  <button className="btn-outline save-review-btn" onClick={handleSaveReview} style={{float: 'none'}}>
-                    Save Review
-                  </button>
+              <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                {[
+                  { label: 'Days', value: timeLeft.days },
+                  { label: 'Hours', value: timeLeft.hours },
+                  { label: 'Minutes', value: timeLeft.minutes },
+                  { label: 'Seconds', value: timeLeft.seconds },
+                ].map(({ label, value }) => (
+                  <div key={label} style={{
+                    background: 'rgba(245,158,11,0.1)',
+                    border: '1px solid rgba(245,158,11,0.3)',
+                    borderRadius: '12px',
+                    padding: '1rem 1.5rem',
+                    minWidth: '80px'
+                  }}>
+                    <div style={{ fontSize: '2.5rem', fontWeight: '900', color: '#f59e0b', lineHeight: 1 }}>
+                      {String(value).padStart(2, '0')}
+                    </div>
+                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '0.25rem' }}>
+                      {label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', marginTop: '1.5rem', marginBottom: 0 }}>
+                🔒 Rating and review will unlock after release
+              </p>
+            </div>
+          )}
+
+          {/* Rating & Review — only for released movies */}
+          {isReleased && (
+            <>
+              <div className="rating-section">
+                <h3>{isSeries ? 'Overall Series Rating (Avg)' : 'Your Rating'}</h3>
+                <div className="stars-container">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star 
+                      key={star}
+                      size={32}
+                      className={`star ${star <= (hoverRating || displayRating) ? 'filled' : ''} ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
+                      onMouseEnter={() => !isReadOnlyRating && currentUser && setHoverRating(star)}
+                      onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
+                      onClick={() => {
+                        if (!currentUser) return navigate('/login');
+                        handleSeriesMainRatingClick(star);
+                      }}
+                    />
+                  ))}
+                  <span className="rating-text">
+                    {displayRating > 0 ? `${displayRating}/5` : 'No ratings yet'}
+                  </span>
                 </div>
-              </>
-            )}
-          </div>
+                {isSeries && <p className="rating-hint">Series rating is automatically calculated from your episode ratings.</p>}
+              </div>
+
+              <div className="review-section">
+                <h3>Your Review</h3>
+                {!currentUser ? (
+                  <div className="login-prompt-box">
+                    <Lock size={24} style={{ marginBottom: '0.5rem', color: 'var(--color-primary)' }} />
+                    <p>Please <span onClick={() => navigate('/login')} style={{ color: 'var(--color-primary)', cursor: 'pointer', textDecoration: 'underline' }}>log in</span> to track activity, rate, and leave reviews.</p>
+                  </div>
+                ) : (
+                  <>
+                    <textarea 
+                      className="review-input"
+                      placeholder="Write your thoughts here..."
+                      value={review}
+                      onChange={(e) => setReview(e.target.value)}
+                      rows={4}
+                    />
+                    <div className="review-actions" style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem'}}>
+                      {(itemData.review || (!isSeries && itemData.rating > 0)) && (
+                        <button className="btn-outline delete-review-btn" onClick={handleDeleteReview} style={{borderColor: 'var(--color-primary)', color: 'var(--color-primary)'}}>
+                          Delete Review
+                        </button>
+                      )}
+                      <button className="btn-outline save-review-btn" onClick={handleSaveReview} style={{float: 'none'}}>
+                        Save Review
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
 
           {/* Episode List Section */}
-          {isSeries && item.episodes && item.id !== 's14' && (
+          {isSeries && item.episodes && item.id !== 's14' && isReleased && (
             <div className="episodes-section">
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', fontSize: '1.8rem' }}>
                 <Tv size={28} className="text-primary" /> Episodes
