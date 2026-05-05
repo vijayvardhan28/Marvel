@@ -1,62 +1,88 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged,
+  updateProfile
+} from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('mcuCurrentUser');
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [users, setUsers] = useState(() => {
-    const saved = localStorage.getItem('mcuUsers');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('mcuCurrentUser', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('mcuCurrentUser');
-    }
-  }, [currentUser]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser({
+          id: user.uid,
+          name: user.displayName || 'Agent',
+          email: user.email
+        });
+      } else {
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
 
-  useEffect(() => {
-    localStorage.setItem('mcuUsers', JSON.stringify(users));
-  }, [users]);
+    return unsubscribe; // Cleanup subscription on unmount
+  }, []);
 
-  const login = (email, password) => {
-    const user = users.find(u => u.email === email && u.password === password);
-    if (user) {
-      setCurrentUser(user);
+  const login = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       return { success: true };
+    } catch (error) {
+      let errorMsg = 'Failed to log in';
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+         errorMsg = 'User does not exist';
+      } else if (error.code === 'auth/wrong-password') {
+         errorMsg = 'Invalid password';
+      }
+      return { success: false, error: errorMsg };
     }
-    const emailExists = users.some(u => u.email === email);
-    if (!emailExists) {
-      return { success: false, error: 'User does not exist' };
-    }
-    return { success: false, error: 'Invalid password' };
   };
 
-  const signup = (name, email, password) => {
-    if (users.some(u => u.email === email)) {
-      return { success: false, error: 'User already exists' };
+  const signup = async (name, email, password) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, {
+        displayName: name
+      });
+      // Force local update so it's immediately available without waiting for the listener
+      setCurrentUser({
+        id: userCredential.user.uid,
+        name: name,
+        email: email
+      });
+      return { success: true };
+    } catch (error) {
+      let errorMsg = 'Failed to create an account';
+      if (error.code === 'auth/email-already-in-use') {
+        errorMsg = 'User already exists';
+      } else if (error.code === 'auth/weak-password') {
+        errorMsg = 'Password should be at least 6 characters';
+      }
+      return { success: false, error: errorMsg };
     }
-    const newUser = { id: Date.now().toString(), name, email, password };
-    setUsers(prev => [...prev, newUser]);
-    setCurrentUser(newUser);
-    return { success: true };
   };
 
-  const logout = () => {
-    setCurrentUser(null);
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
   };
 
   return (
     <AuthContext.Provider value={{ currentUser, login, signup, logout }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

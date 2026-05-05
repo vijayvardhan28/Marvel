@@ -11,12 +11,12 @@ const Signup = () => {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
     
     if (name && email && password) {
-      const result = signup(name, email, password);
+      const result = await signup(name, email, password);
       if (result.success) {
         navigate('/');
       } else {
