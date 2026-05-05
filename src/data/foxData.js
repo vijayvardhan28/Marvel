@@ -109,15 +109,6 @@ export const foxData = [
   },
   {
     "id": "f13",
-    "title": "The New Mutants",
-    "type": "movie",
-    "releaseDate": "2020-08-28",
-    "timelineOrder": 8,
-    "runtime": 94,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BZGVlMjBkYmMtZDhmYS00N2QyLWI2YTgtMDU2N2UwOWYzM2MxXkEyXkFqcGc@._V1_SX300.jpg"
-  },
-  {
-    "id": "f14",
     "title": "Fantastic Four",
     "type": "movie",
     "releaseDate": "2005-07-08",
@@ -126,7 +117,7 @@ export const foxData = [
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNjY2YmZmMzUtZWY5Mi00MzI3LTljOTgtYTMwMWY1ODI5ZWY5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
   },
   {
-    "id": "f15",
+    "id": "f14",
     "title": "Fantastic Four: Rise of the Silver Surfer",
     "type": "movie",
     "releaseDate": "2007-06-15",
@@ -135,7 +126,7 @@ export const foxData = [
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNmZmMTU0OGQtOWRmNS00ZjA1LWJkM2EtYmUwNGEzMjIyZDM1XkEyXkFqcGc@._V1_QL75_UY562_CR5,0,380,562_.jpg"
   },
   {
-    "id": "f16",
+    "id": "f15",
     "title": "Fantastic Four (Reboot)",
     "type": "movie",
     "releaseDate": "2015-08-07",

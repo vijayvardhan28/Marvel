@@ -60,7 +60,7 @@ export const spiderVerseData = [
     "releaseDate": "2018-12-14",
     "timelineOrder": 1,
     "runtime": 117,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMjMwNDkxMTgzOF5BMl5BanBnXkFtZTgwNTkwNTQ3NjM@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+    "imageUrl": "https://image.tmdb.org/t/p/w500/zPo3HxjxrBi9IOsFRZSDkMpCfdj.jpg"
   },
   {
     "id": "sv2",
@@ -69,16 +69,16 @@ export const spiderVerseData = [
     "releaseDate": "2023-06-02",
     "timelineOrder": 2,
     "runtime": 140,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNzQ1ODUzYjktMzRiMS00ODAxLWI4NTAtNTc4NDgwMGZlZTcxXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg"
+    "imageUrl": "https://image.tmdb.org/t/p/w500/80EHqpAzRKbMQ4HCU3EEnEvHBPQ.jpg"
   },
   {
     "id": "sv3",
     "title": "Spider-Man: Beyond the Spider-Verse",
     "type": "movie",
-    "releaseDate": "2027-01-01",
+    "releaseDate": "2027-06-18",
     "timelineOrder": 3,
     "runtime": 120,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNzQ1ODUzYjktMzRiMS00ODAxLWI4NTAtNTc4NDgwMGZlZTcxXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg"
+    "imageUrl": "https://image.tmdb.org/t/p/w500/yweju3H52GA1PTZ2yOd3xXP5B3a.jpg"
   }
 ];
 
@@ -91,7 +91,7 @@ export const yfnsmData = [
     "releaseDate": "2025-01-29",
     "timelineOrder": 1,
     "runtime": 280,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNzY5MDlkZTUtY2MxNy00NzNkLWI1ODUtMTBmOTBjMWZiMzY2XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+    "imageUrl": "/Spidey.jpg",
     "episodes": [
       { "id": "yfnsm1_e1", "episodeNumber": 1, "title": "Episode 1" },
       { "id": "yfnsm1_e2", "episodeNumber": 2, "title": "Episode 2" },

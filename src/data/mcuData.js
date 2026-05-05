@@ -589,11 +589,11 @@ export const mcuData = [
   },
   {
     "id": "s9",
-    "title": "Eww-Hulk: Attorney at Law 🤮",
+    "title": "Eww-Hulk: Attorney at Low 🤮",
     "type": "series",
     "releaseDate": "2022-08-18",
     "timelineOrder": 35,
-    "runtime": 315,
+    "runtime": 0,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNjg4ZTQ1MjctNzEyMS00YWM2LTk1ZTQtNDU3ZDJjNjhhMDhkXkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -951,7 +951,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2025-09-03",
     "timelineOrder": 49,
-    "runtime": 280,
+    "runtime": 0,
     "imageUrl": "/niggaheart_poster.jpg",
     "episodes": [
       {
@@ -984,6 +984,25 @@ export const mcuData = [
         "episodeNumber": 6,
         "title": "The Past Is the Past"
       }
+    ]
+  },
+  {
+    "id": "s16",
+    "title": "Wonder Man",
+    "type": "series",
+    "releaseDate": "2026-01-27",
+    "timelineOrder": 50.5,
+    "runtime": 320,
+    "imageUrl": "/wonder.jpg",
+    "episodes": [
+      { "id": "s16_e1", "episodeNumber": 1, "title": "Episode 1" },
+      { "id": "s16_e2", "episodeNumber": 2, "title": "Episode 2" },
+      { "id": "s16_e3", "episodeNumber": 3, "title": "Episode 3" },
+      { "id": "s16_e4", "episodeNumber": 4, "title": "Episode 4" },
+      { "id": "s16_e5", "episodeNumber": 5, "title": "Episode 5" },
+      { "id": "s16_e6", "episodeNumber": 6, "title": "Episode 6" },
+      { "id": "s16_e7", "episodeNumber": 7, "title": "Episode 7" },
+      { "id": "s16_e8", "episodeNumber": 8, "title": "Episode 8" }
     ]
   },
   {
