@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Film, MonitorPlay, LayoutDashboard } from 'lucide-react';
+import { Film, MonitorPlay, LayoutDashboard, LogIn } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
@@ -9,7 +9,8 @@ const Header = () => {
   const navItems = [
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { path: '/timeline', label: 'MCU', icon: <Film size={20} /> },
-    { path: '/fox', label: 'Fox', icon: <Film size={20} /> }
+    { path: '/fox', label: 'Fox', icon: <Film size={20} /> },
+    { path: '/login', label: 'Login', icon: <LogIn size={20} /> }
   ];
 
   return (
