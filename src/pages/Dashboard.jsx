@@ -100,6 +100,17 @@ const Dashboard = () => {
             ></div>
           </div>
         </section>
+
+        <footer className="dashboard-credit">
+          <div className="credit-inner">
+            <span className="credit-icon">⚡</span>
+            <span className="credit-text">
+              Made with <span className="credit-heart">❤️</span> by{' '}
+              <strong className="credit-name">Vijay Vardhan</strong>
+            </span>
+            <span className="credit-icon">⚡</span>
+          </div>
+        </footer>
       </div>
     </div>
   );
