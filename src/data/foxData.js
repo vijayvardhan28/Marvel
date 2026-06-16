@@ -124,14 +124,5 @@ export const foxData = [
     "timelineOrder": 10,
     "runtime": 92,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNmZmMTU0OGQtOWRmNS00ZjA1LWJkM2EtYmUwNGEzMjIyZDM1XkEyXkFqcGc@._V1_QL75_UY562_CR5,0,380,562_.jpg"
-  },
-  {
-    "id": "f15",
-    "title": "Fantastic Four (Reboot)",
-    "type": "movie",
-    "releaseDate": "2015-08-07",
-    "timelineOrder": 14,
-    "runtime": 100,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNjY2YmZmMzUtZWY5Mi00MzI3LTljOTgtYTMwMWY1ODI5ZWY5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
   }
 ];

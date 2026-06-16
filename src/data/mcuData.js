@@ -1067,10 +1067,19 @@ export const mcuData = [
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BM2E1ZTJiZTgtZGI2Zi00MzAxLThhZjktMmU3M2E3Yzk3NjUxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
   },
   {
+    "id": "sp1",
+    "title": "The Punisher: One Last Kill",
+    "type": "special",
+    "releaseDate": "2026-06-13",
+    "timelineOrder": 51.5,
+    "runtime": 52,
+    "imageUrl": "/punisher_one_last_kill.jpg"
+  },
+  {
     "id": "m39",
     "title": "Spider-Man: Brand New Day",
     "type": "movie",
-    "releaseDate": "2026-07-31",
+    "releaseDate": "2026-07-30",
     "timelineOrder": 52,
     "runtime": 135,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"

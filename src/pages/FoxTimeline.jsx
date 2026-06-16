@@ -11,7 +11,7 @@ const FoxTimeline = () => {
 
   const [sortMethod, setSortMethod] = useState('release'); // 'release' or 'chronological'
   const [watchFilter, setWatchFilter] = useState(initialStatus); // 'all', 'watched', 'unwatched'
-  
+
   const { userData } = useMCU();
 
   // Update URL when filter changes
@@ -26,21 +26,21 @@ const FoxTimeline = () => {
 
   const sortedData = useMemo(() => {
     let result = [...foxData];
-    
+
     // Filter by watched status
     if (watchFilter === 'watched') {
       result = result.filter(item => userData[item.id]?.watched);
     } else if (watchFilter === 'unwatched') {
       result = result.filter(item => !userData[item.id]?.watched);
     }
-    
+
     // Sort
     if (sortMethod === 'release') {
       result.sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate));
     } else {
       result.sort((a, b) => a.timelineOrder - b.timelineOrder);
     }
-    
+
     return result;
   }, [sortMethod, watchFilter, userData]);
 
@@ -48,26 +48,26 @@ const FoxTimeline = () => {
     <div className="timeline-page">
       <div className="timeline-header">
         <h1 className="page-title animate-fade-in">Fox <span className="text-gradient">Universe</span></h1>
-        
+
         <div className="controls animate-fade-in delay-1">
           <div className="toggle-group glass-panel">
-            <button 
+            <button
               className={`toggle-btn ${sortMethod === 'release' ? 'active' : ''}`}
               onClick={() => setSortMethod('release')}
             >
               Release Order
             </button>
-            <button 
+            <button
               className={`toggle-btn ${sortMethod === 'chronological' ? 'active' : ''}`}
               onClick={() => setSortMethod('chronological')}
             >
               Chronological
             </button>
           </div>
-          
+
           <div className="filter-group glass-panel">
-            <select 
-              value={watchFilter} 
+            <select
+              value={watchFilter}
               onChange={(e) => setWatchFilter(e.target.value)}
               className="filter-select"
             >
