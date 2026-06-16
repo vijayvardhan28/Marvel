@@ -1,6 +1,7 @@
 import { mcuData } from './mcuData';
 import { foxData } from './foxData';
 import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData } from './spiderManData';
+import { animatedData } from './animatedData';
 
 export const allMediaData = [
   ...mcuData,
@@ -8,5 +9,6 @@ export const allMediaData = [
   ...raimiSpiderManData,
   ...amazingSpiderManData,
   ...spiderVerseData,
-  ...yfnsmData
+  ...yfnsmData,
+  ...animatedData
 ];

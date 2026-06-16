@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Timeline from './pages/Timeline';
 import FoxTimeline from './pages/FoxTimeline';
 import SpiderManTimeline from './pages/SpiderManTimeline';
+import AnimatedTimeline from './pages/AnimatedTimeline';
 import DetailView from './pages/DetailView';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/fox" element={<FoxTimeline />} />
           <Route path="/spiderman" element={<SpiderManTimeline />} />
+          <Route path="/animated" element={<AnimatedTimeline />} />
           <Route path="/detail/:id" element={<DetailView />} />
         </Routes>
       </main>
