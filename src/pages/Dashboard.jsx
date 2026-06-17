@@ -25,6 +25,7 @@ const Dashboard = () => {
   const mcuProgress = (calculateTotalRuntime(watchedMcuItems) / calculateTotalRuntime(mcuData)) * 100 || 0;
   const foxProgress = (calculateTotalRuntime(watchedFoxItems) / calculateTotalRuntime(foxData)) * 100 || 0;
   const spiderManProgress = (calculateTotalRuntime(watchedSpiderManItems) / calculateTotalRuntime(spiderManData)) * 100 || 0;
+  const totalProgress = (watchedRuntime / totalRuntime) * 100 || 0;
 
   return (
     <div className="dashboard-page">
@@ -70,6 +71,17 @@ const Dashboard = () => {
         </section>
 
         <section className="progress-section glass-panel delay-2">
+          <div className="progress-header">
+            <h3>🌟 Overall Universe Progress</h3>
+            <span>{totalProgress.toFixed(1)}%</span>
+          </div>
+          <div className="progress-bar-container" style={{ marginBottom: '2rem' }}>
+            <div 
+              className="progress-bar-fill" 
+              style={{ width: `${totalProgress}%`, background: 'linear-gradient(90deg, #f59e0b, #ef4444)', boxShadow: '0 0 10px rgba(245, 158, 11, 0.5)' }}
+            ></div>
+          </div>
+
           <div className="progress-header">
             <h3>MCU Progress</h3>
             <span>{mcuProgress.toFixed(1)}%</span>
