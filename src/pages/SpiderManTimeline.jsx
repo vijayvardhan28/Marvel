@@ -10,9 +10,18 @@ const SpiderManTimeline = () => {
   const { userData } = useMCU();
 
   const filterData = (data) => {
-    if (watchFilter === 'watched') return data.filter(item => userData[item.id]?.watched);
-    if (watchFilter === 'unwatched') return data.filter(item => !userData[item.id]?.watched);
-    return data;
+    let result = [...data];
+    if (watchFilter === 'ignored') {
+      result = result.filter(item => item.id === 's9' || item.id === 's14');
+    } else {
+      result = result.filter(item => item.id !== 's9' && item.id !== 's14');
+      if (watchFilter === 'watched') {
+        result = result.filter(item => userData[item.id]?.watched);
+      } else if (watchFilter === 'unwatched') {
+        result = result.filter(item => !userData[item.id]?.watched);
+      }
+    }
+    return result;
   };
 
   const raimiFiltered    = useMemo(() => filterData([...raimiSpiderManData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
@@ -60,6 +69,7 @@ const SpiderManTimeline = () => {
               <option value="all">All Status</option>
               <option value="watched">Watched Only</option>
               <option value="unwatched">Unwatched Only</option>
+              <option value="ignored">Ignored Shit</option>
             </select>
           </div>
         </div>

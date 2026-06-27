@@ -34,10 +34,17 @@ const Timeline = () => {
     }
     
     // Filter by watched status
-    if (watchFilter === 'watched') {
-      result = result.filter(item => userData[item.id]?.watched);
-    } else if (watchFilter === 'unwatched') {
-      result = result.filter(item => !userData[item.id]?.watched);
+    if (watchFilter === 'ignored') {
+      result = result.filter(item => item.id === 's9' || item.id === 's14');
+    } else {
+      // Exclude ignored items from normal views
+      result = result.filter(item => item.id !== 's9' && item.id !== 's14');
+      
+      if (watchFilter === 'watched') {
+        result = result.filter(item => userData[item.id]?.watched);
+      } else if (watchFilter === 'unwatched') {
+        result = result.filter(item => !userData[item.id]?.watched);
+      }
     }
     
     // Sort
@@ -80,6 +87,7 @@ const Timeline = () => {
               <option value="all">All Status</option>
               <option value="watched">Watched Only</option>
               <option value="unwatched">Unwatched Only</option>
+              <option value="ignored">Ignored Shit</option>
             </select>
             
             <select 
