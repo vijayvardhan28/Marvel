@@ -30,13 +30,10 @@ const FoxTimeline = () => {
     // Filter by watched status
     if (watchFilter === 'ignored') {
       result = result.filter(item => item.id === 's9' || item.id === 's14');
-    } else {
-      result = result.filter(item => item.id !== 's9' && item.id !== 's14');
-      if (watchFilter === 'watched') {
-        result = result.filter(item => userData[item.id]?.watched);
-      } else if (watchFilter === 'unwatched') {
-        result = result.filter(item => !userData[item.id]?.watched);
-      }
+    } else if (watchFilter === 'watched') {
+      result = result.filter(item => userData[item.id]?.watched && item.id !== 's9' && item.id !== 's14');
+    } else if (watchFilter === 'unwatched') {
+      result = result.filter(item => !userData[item.id]?.watched && item.id !== 's9' && item.id !== 's14');
     }
 
     // Sort
