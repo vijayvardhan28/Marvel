@@ -3,7 +3,7 @@ export const mcuData = [
     "id": "m1",
     "title": "Iron Man",
     "type": "movie",
-    "releaseDate": "2008-05-02",
+    "releaseDate": "2008-05-01",
     "timelineOrder": 3,
     "runtime": 126,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_QL75_UX380_CR0,0,380,562_.jpg"
@@ -12,7 +12,7 @@ export const mcuData = [
     "id": "m2",
     "title": "The Incredible Hulk",
     "type": "movie",
-    "releaseDate": "2008-06-13",
+    "releaseDate": "2008-06-20",
     "timelineOrder": 5,
     "runtime": 112,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTUyNzk3MjA1OF5BMl5BanBnXkFtZTcwMTE1Njg2MQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg"
@@ -268,7 +268,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2021-03-19",
     "timelineOrder": 25,
-    "runtime": 330,
+    "runtime": 300,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BYmJkOGNlNmEtMmQyOS00YjZiLTgxM2EtNmEzNzUzNTU5ODYwXkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -352,67 +352,6 @@ export const mcuData = [
     "timelineOrder": 14.5,
     "runtime": 134,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BZTMyZTA0ZTItYjY3Yi00ODNjLWExYTgtYzgxZTk0NTg0Y2FlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
-  },
-  {
-    "id": "s5",
-    "title": "What If...? Season 1",
-    "type": "series",
-    "releaseDate": "2021-08-11",
-    "timelineOrder": 26.5,
-    "runtime": 300,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BYWFiOTcwNzItMTg5Mi00ZTU4LThkZWYtYWNmZWQ1ODE5ZTVmXkEyXkFqcGc@._V1_SX300.jpg",
-    "episodes": [
-      {
-        "id": "s5_e1",
-        "episodeNumber": 1,
-        "title": "What If... Captain Carter Were the First Avenger?"
-      },
-      {
-        "id": "s5_e2",
-        "episodeNumber": 2,
-        "title": "What If... T'Challa Became a Star-Lord?"
-      },
-      {
-        "id": "s5_e3",
-        "episodeNumber": 3,
-        "title": "What If... The World Lost Its Mightiest Heroes?"
-      },
-      {
-        "id": "s5_e4",
-        "episodeNumber": 4,
-        "title": "What If... Doctor Strange Lost His Heart Instead of His Hands?"
-      },
-      {
-        "id": "s5_e5",
-        "episodeNumber": 5,
-        "title": "What If... Zombies?!"
-      },
-      {
-        "id": "s5_e6",
-        "episodeNumber": 6,
-        "title": "What If... Killmonger Rescued Tony Stark?"
-      },
-      {
-        "id": "s5_e7",
-        "episodeNumber": 7,
-        "title": "What If... Thor Were an Only Child?"
-      },
-      {
-        "id": "s5_e8",
-        "episodeNumber": 8,
-        "title": "What If... Ultron Won?"
-      },
-      {
-        "id": "s5_e9",
-        "episodeNumber": 9,
-        "title": "What If... The Watcher Broke His Oath?"
-      },
-      {
-        "id": "s5_e10",
-        "episodeNumber": 10,
-        "title": "Episode 10"
-      }
-    ]
   },
   {
     "id": "m25",

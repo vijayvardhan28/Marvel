@@ -5,7 +5,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2021-08-11",
     "timelineOrder": 1,
-    "runtime": 300,
+    "runtime": 281,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/363/909034.jpg",
     "episodes": [
       { "id": "anim1_e1", "episodeNumber": 1, "title": "What If... Captain Carter Were the First Avenger?" },
@@ -25,7 +25,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2022-08-10",
     "timelineOrder": 2,
-    "runtime": 20,
+    "runtime": 18,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/416/1041836.jpg",
     "episodes": [
       { "id": "anim2_e1", "episodeNumber": 1, "title": "Groot's First Steps" },
@@ -36,12 +36,28 @@ export const animatedData = [
     ]
   },
   {
+    "id": "anim2_s2",
+    "title": "I Am Groot Season 2",
+    "type": "series",
+    "releaseDate": "2023-09-06",
+    "timelineOrder": 2.5,
+    "runtime": 19,
+    "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/416/1041836.jpg",
+    "episodes": [
+      { "id": "anim2_s2_e1", "episodeNumber": 1, "title": "Are You My Groot?" },
+      { "id": "anim2_s2_e2", "episodeNumber": 2, "title": "Groot Noses Around" },
+      { "id": "anim2_s2_e3", "episodeNumber": 3, "title": "Groot's Snow Day" },
+      { "id": "anim2_s2_e4", "episodeNumber": 4, "title": "Groot's Sweet Treat" },
+      { "id": "anim2_s2_e5", "episodeNumber": 5, "title": "Groot and the Great Prophecy" }
+    ]
+  },
+  {
     "id": "anim3",
     "title": "What If...? Season 2",
     "type": "series",
     "releaseDate": "2023-12-22",
     "timelineOrder": 3,
-    "runtime": 300,
+    "runtime": 265,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/487/1217726.jpg",
     "episodes": [
       { "id": "anim3_e1", "episodeNumber": 1, "title": "What If... Nebula Joined the Nova Corps?" },
@@ -61,7 +77,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2024-03-20",
     "timelineOrder": 4,
-    "runtime": 300,
+    "runtime": 313,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/504/1261028.jpg",
     "episodes": [
       { "id": "anim4_e1", "episodeNumber": 1, "title": "To Me, My X-Men" },
@@ -77,12 +93,33 @@ export const animatedData = [
     ]
   },
   {
+    "id": "anim4_s2",
+    "title": "X-Men '97 Season 2",
+    "type": "series",
+    "releaseDate": "2026-07-01",
+    "timelineOrder": 4.1,
+    "runtime": 300,
+    "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/504/1261028.jpg",
+    "episodes": [
+      { "id": "anim4_s2_e1", "episodeNumber": 1, "title": "Episode 1" },
+      { "id": "anim4_s2_e2", "episodeNumber": 2, "title": "Episode 2" },
+      { "id": "anim4_s2_e3", "episodeNumber": 3, "title": "Episode 3" },
+      { "id": "anim4_s2_e4", "episodeNumber": 4, "title": "Episode 4" },
+      { "id": "anim4_s2_e5", "episodeNumber": 5, "title": "Episode 5" },
+      { "id": "anim4_s2_e6", "episodeNumber": 6, "title": "Episode 6" },
+      { "id": "anim4_s2_e7", "episodeNumber": 7, "title": "Episode 7" },
+      { "id": "anim4_s2_e8", "episodeNumber": 8, "title": "Episode 8" },
+      { "id": "anim4_s2_e9", "episodeNumber": 9, "title": "Episode 9" },
+      { "id": "anim4_s2_e10", "episodeNumber": 10, "title": "Episode 10" }
+    ]
+  },
+  {
     "id": "anim7",
     "title": "What If...? Season 3",
     "type": "series",
     "releaseDate": "2024-12-22",
     "timelineOrder": 4.5,
-    "runtime": 300,
+    "runtime": 232,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/543/1358423.jpg",
     "episodes": [
       { "id": "anim7_e1", "episodeNumber": 1, "title": "Episode 1" },
@@ -101,7 +138,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2025-08-06",
     "timelineOrder": 5,
-    "runtime": 120,
+    "runtime": 113,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/580/1451377.jpg",
     "episodes": [
       { "id": "anim5_e1", "episodeNumber": 1, "title": "Episode 1" },
@@ -116,7 +153,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2025-10-01",
     "timelineOrder": 6,
-    "runtime": 120,
+    "runtime": 124,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/586/1466485.jpg",
     "episodes": [
       { "id": "anim6_e1", "episodeNumber": 1, "title": "Episode 1" },

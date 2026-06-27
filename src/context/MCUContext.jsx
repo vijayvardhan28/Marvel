@@ -81,12 +81,17 @@ export const MCUProvider = ({ children }) => {
     updateItem(id, { review });
   };
 
+  const setCustomRating = (id, customRating) => {
+    updateItem(id, { customRating, watched: true });
+  };
+
   const value = {
     userData,
     updateItem,
     markWatched,
     rateItem,
-    reviewItem
+    reviewItem,
+    setCustomRating
   };
 
   return (

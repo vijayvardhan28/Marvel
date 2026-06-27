@@ -9,6 +9,7 @@ const MediaCard = ({ item, index }) => {
   const { userData, markWatched } = useMCU();
   const itemData = userData[item.id] || {};
   const isWatched = itemData.watched || false;
+  const customRating = itemData.customRating;
 
   const isReleased = new Date(item.releaseDate) <= new Date();
 
@@ -33,7 +34,15 @@ const MediaCard = ({ item, index }) => {
     <Link to={`/detail/${item.id}`} className="media-card-link animate-fade-in" style={{animationDelay: `${index * 0.05}s`}}>
       <div className={`media-card ${isWatched ? 'watched' : ''} ${!isReleased ? 'unreleased' : ''}`}>
         <div className="poster-container" style={{ background: item.imageUrl ? `url(${item.imageUrl}) center/cover no-repeat` : getGradient(item.id) }}>
-          {isWatched && isReleased && <div className="watched-overlay"><CheckCircle size={48} className="text-success" /></div>}
+          {customRating && isReleased ? (
+            <div className="watched-overlay">
+              <div className={`rating-stamp stamp-${customRating.toLowerCase()}`}>
+                {customRating}
+              </div>
+            </div>
+          ) : (
+            isWatched && isReleased && <div className="watched-overlay"><CheckCircle size={48} className="text-success" /></div>
+          )}
           {!isReleased && (
             <div className="coming-soon-badge">COMING SOON</div>
           )}
@@ -60,7 +69,10 @@ const MediaCard = ({ item, index }) => {
                 className={`watch-btn ${isWatched ? 'is-watched' : ''}`}
                 onClick={handleWatchToggle}
               >
-                {isWatched ? <><CheckCircle size={16}/> Watched</> : <><PlayCircle size={16}/> Mark Watched</>}
+                {(item.title.includes('Eww-Hulk') || item.title.includes('niggaheart')) ? 
+                  (isWatched ? <><CheckCircle size={16}/> Marked as ignore this shit</> : <><PlayCircle size={16}/> Mark as ignore this shit</>) :
+                  (isWatched ? <><CheckCircle size={16}/> Watched</> : <><PlayCircle size={16}/> Mark Watched</>)
+                }
               </button>
             ) : (
               <button className="watch-btn unreleased-btn" disabled>

@@ -32,7 +32,7 @@ const useCountdown = (targetDate) => {
 const DetailView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { userData, updateItem, markWatched, rateItem } = useMCU();
+  const { userData, updateItem, markWatched, rateItem, setCustomRating } = useMCU();
   const { currentUser } = useAuth();
   
   const item = allMediaData.find(m => m.id === id);
@@ -124,31 +124,71 @@ const DetailView = () => {
               </div>
             </div>
             
-            {item.id === 's14' ? (
-              <button 
-                className="btn-primary watch-toggle-btn"
-                disabled
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', cursor: 'not-allowed', color: 'var(--color-text-muted)' }}
-              >
-                Not a Marvel Series
-              </button>
-            ) : !isReleased ? (
-              <button 
-                className="btn-primary watch-toggle-btn"
-                disabled
-                style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', cursor: 'not-allowed', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.3)' }}
-              >
-                <Calendar size={20}/> Not Released Yet
-              </button>
-            ) : (
-              <button 
-                className={`btn-primary watch-toggle-btn ${isWatched ? 'watched' : ''}`}
-                onClick={() => currentUser ? markWatched(id, !isWatched) : navigate('/login')}
-                style={!currentUser ? { opacity: 0.7 } : {}}
-              >
-                {!currentUser ? <><Lock size={20}/> Login to Track</> : isWatched ? <><CheckCircle size={20}/> Watched</> : 'Mark as Watched'}
-              </button>
-            )}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              {item.id === 's14' ? (
+                <button 
+                  className="btn-primary watch-toggle-btn"
+                  disabled
+                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', cursor: 'not-allowed', color: 'var(--color-text-muted)' }}
+                >
+                  Not a Marvel Series
+                </button>
+              ) : !isReleased ? (
+                <button 
+                  className="btn-primary watch-toggle-btn"
+                  disabled
+                  style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', cursor: 'not-allowed', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.3)' }}
+                >
+                  <Calendar size={20}/> Not Released Yet
+                </button>
+              ) : (
+                <>
+                  <button 
+                    className={`btn-primary watch-toggle-btn ${isWatched ? 'watched' : ''}`}
+                    onClick={() => currentUser ? markWatched(id, !isWatched) : navigate('/login')}
+                    style={!currentUser ? { opacity: 0.7 } : {}}
+                  >
+                    {!currentUser ? <><Lock size={20}/> Login to Track</> : 
+                      (item.title.includes('Eww-Hulk') || item.title.includes('niggaheart')) ? 
+                        (isWatched ? <><CheckCircle size={20}/> Marked as ignore this shit</> : 'Mark as ignore this shit') :
+                        (isWatched ? <><CheckCircle size={20}/> Watched</> : 'Mark as Watched')
+                    }
+                  </button>
+
+                  {item.watchLink && (
+                    <a 
+                      href={item.watchLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary watch-link-btn"
+                      style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#e50914' }}
+                    >
+                      <Tv size={20}/> Watch Now
+                    </a>
+                  )}
+                </>
+              )}
+              {isReleased && currentUser && (
+                <div className="custom-ratings-container" style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', flexWrap: 'wrap', width: '100%', alignItems: 'center' }}>
+                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>Rank:</span>
+                  {['Goated', 'Best', 'Good', 'Ok', 'DogShit'].map(tier => (
+                    <button
+                      key={tier}
+                      className={`custom-tier-btn ${itemData.customRating === tier ? 'active tier-' + tier.toLowerCase() : ''}`}
+                      onClick={() => {
+                        if (itemData.customRating === tier) {
+                          updateItem(id, { customRating: null });
+                        } else {
+                          setCustomRating(id, tier);
+                        }
+                      }}
+                    >
+                      {tier}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
