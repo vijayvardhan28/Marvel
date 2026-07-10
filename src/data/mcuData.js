@@ -1030,7 +1030,7 @@ export const mcuData = [
     "releaseDate": "2027-05-07",
     "timelineOrder": 54,
     "runtime": 160,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BYjc2N2YyY2QtZGI1Yy00MDZkLWEwMDktYTI2YWM2MTAyOGI5XkEyXkFqcGc@._V1_SX300.jpg"
+    "imageUrl": "https://cdn.marvel.com/content/2x/avengerssecretwars_lob_crd_02.webp"
   }
 ];
 
