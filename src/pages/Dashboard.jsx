@@ -4,7 +4,7 @@ import { useMCU } from '../context/MCUContext';
 import { mcuData, calculateTotalRuntime, formatRuntime } from '../data/mcuData';
 import { foxData } from '../data/foxData';
 import { animatedData } from '../data/animatedData';
-import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData } from '../data/spiderManData';
+import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData, venomData } from '../data/spiderManData';
 import { Clock, CheckCircle, TrendingUp } from 'lucide-react';
 import './Dashboard.css';
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { userData } = useMCU();
   const navigate = useNavigate();
 
-  const spiderManData = [...raimiSpiderManData, ...amazingSpiderManData, ...spiderVerseData, ...yfnsmData];
+  const spiderManData = [...raimiSpiderManData, ...amazingSpiderManData, ...spiderVerseData, ...yfnsmData, ...venomData];
   const totalRuntime = calculateTotalRuntime([...mcuData, ...foxData, ...spiderManData, ...animatedData]);
   
   const watchedMcuItems = mcuData.filter(item => userData[item.id]?.watched);

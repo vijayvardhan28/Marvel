@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData } from '../data/spiderManData';
+import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData, venomData } from '../data/spiderManData';
 import { useMCU } from '../context/MCUContext';
 import MediaCard from '../components/MediaCard';
 import './Timeline.css';
@@ -25,6 +25,7 @@ const SpiderManTimeline = () => {
   const amazingFiltered  = useMemo(() => filterData([...amazingSpiderManData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
   const verseFiltered    = useMemo(() => filterData([...spiderVerseData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
   const yfnsmFiltered    = useMemo(() => filterData([...yfnsmData]), [watchFilter, userData]);
+  const venomFiltered    = useMemo(() => filterData([...venomData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
 
   const Section = ({ children, badge, badgeClass, years, delay }) => (
     <div className={`spiderman-section animate-fade-in ${delay}`}>
@@ -87,8 +88,13 @@ const SpiderManTimeline = () => {
         <Grid items={verseFiltered} />
       </Section>
 
+      {/* Venom Trilogy */}
+      <Section badge="Venom Trilogy" badgeClass="venom-badge" years="2018 – 2024" delay="delay-4">
+        <Grid items={venomFiltered} />
+      </Section>
+
       {/* Your Friendly Neighborhood Spider-Man */}
-      <Section badge="Your Friendly Neighborhood Spider-Man" badgeClass="yfnsm-badge" years="2025 – Present" delay="delay-4">
+      <Section badge="Your Friendly Neighborhood Spider-Man" badgeClass="yfnsm-badge" years="2025 – Present" delay="delay-5">
         <Grid items={yfnsmFiltered} />
       </Section>
     </div>

@@ -65,8 +65,18 @@
   box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
 }
 
+.venom-badge {
+  background: linear-gradient(135deg, #000000, #333333);
+  color: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
 .delay-4 {
   animation-delay: 0.3s;
+}
+
+.delay-5 {
+  animation-delay: 0.4s;
 }
 
 .section-years {

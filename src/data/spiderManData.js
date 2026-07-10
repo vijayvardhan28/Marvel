@@ -106,3 +106,34 @@ export const yfnsmData = [
     ]
   }
 ];
+
+// Venom Trilogy (2018-2024)
+export const venomData = [
+  {
+    "id": "venom1",
+    "title": "Venom",
+    "type": "movie",
+    "releaseDate": "2018-10-05",
+    "timelineOrder": 1,
+    "runtime": 112,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNTYwMDg5MDItNjhmZi00NmVmLThjNWItMmNkMjVkMWRhNzI2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  },
+  {
+    "id": "venom2",
+    "title": "Venom: Let There Be Carnage",
+    "type": "movie",
+    "releaseDate": "2021-10-01",
+    "timelineOrder": 2,
+    "runtime": 97,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BZGIxMTU1MjItM2FmMi00YmFiLTgwNDMtMTczYmVjYTBhNGZhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  },
+  {
+    "id": "venom3",
+    "title": "Venom: The Last Dance",
+    "type": "movie",
+    "releaseDate": "2024-10-25",
+    "timelineOrder": 3,
+    "runtime": 109,
+    "imageUrl": "https://image.tmdb.org/t/p/w500/aosm8NMQ3UyoBVpSxyimorCQykC.jpg"
+  }
+];
