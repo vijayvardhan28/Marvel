@@ -282,7 +282,7 @@ const DetailView = () => {
                     );
                   })}
                   <span className="rating-text">
-                    {displayRating > 0 ? `${displayRating}/5` : 'No ratings yet'}
+                    {hoverRating > 0 ? `${hoverRating}/5` : (displayRating > 0 ? `${displayRating}/5` : 'No ratings yet')}
                   </span>
                 </div>
                 {isSeries && <p className="rating-hint">Series rating is automatically calculated from your episode ratings.</p>}
