@@ -262,9 +262,13 @@ const DetailView = () => {
                           }
                         }}
                         onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
-                        onClick={() => {
+                        onClick={(e) => {
                           if (!currentUser) return navigate('/login');
-                          handleSeriesMainRatingClick(hoverRating || starValue);
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          // Support mobile by checking click coordinates since hover doesn't trigger on touch
+                          const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
+                          const clickedRating = isLeftHalf ? starValue - 0.5 : starValue;
+                          handleSeriesMainRatingClick(clickedRating);
                         }}
                       >
                         {isHalf ? (
