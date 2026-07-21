@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { allMediaData } from '../data/allData';
 import { useMCU } from '../context/MCUContext';
 import { useAuth } from '../context/AuthContext';
-import { Star, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer } from 'lucide-react';
+import { Star, StarHalf, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer } from 'lucide-react';
 import './DetailView.css';
 
 // Countdown timer hook
@@ -245,19 +245,42 @@ const DetailView = () => {
               <div className="rating-section">
                 <h3>{isSeries ? 'Overall Series Rating (Avg)' : 'Your Rating'}</h3>
                 <div className="stars-container">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star 
-                      key={star}
-                      size={32}
-                      className={`star ${star <= (hoverRating || displayRating) ? 'filled' : ''} ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
-                      onMouseEnter={() => !isReadOnlyRating && currentUser && setHoverRating(star)}
-                      onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
-                      onClick={() => {
-                        if (!currentUser) return navigate('/login');
-                        handleSeriesMainRatingClick(star);
-                      }}
-                    />
-                  ))}
+                  {[1, 2, 3, 4, 5].map((starValue) => {
+                    const currentRating = Number(hoverRating) || Number(displayRating);
+                    const isFull = currentRating >= starValue;
+                    const isHalf = currentRating >= starValue - 0.5 && currentRating < starValue;
+                    
+                    return (
+                      <div
+                        key={starValue}
+                        style={{ display: 'inline-flex', cursor: isReadOnlyRating || !currentUser ? 'default' : 'pointer' }}
+                        onMouseMove={(e) => {
+                          if (!isReadOnlyRating && currentUser) {
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
+                            setHoverRating(isLeftHalf ? starValue - 0.5 : starValue);
+                          }
+                        }}
+                        onMouseLeave={() => !isReadOnlyRating && currentUser && setHoverRating(0)}
+                        onClick={() => {
+                          if (!currentUser) return navigate('/login');
+                          handleSeriesMainRatingClick(hoverRating || starValue);
+                        }}
+                      >
+                        {isHalf ? (
+                          <StarHalf 
+                            size={32}
+                            className={`star filled ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
+                          />
+                        ) : (
+                          <Star 
+                            size={32}
+                            className={`star ${isFull ? 'filled' : ''} ${isReadOnlyRating || !currentUser ? 'read-only' : ''}`}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                   <span className="rating-text">
                     {displayRating > 0 ? `${displayRating}/5` : 'No ratings yet'}
                   </span>
@@ -318,17 +341,35 @@ const DetailView = () => {
                       
                       <div className="episode-actions">
                         <div className="mini-stars">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star 
-                              key={star}
-                              size={20}
-                              className={`star ${star <= epRating ? 'filled' : ''} ${!currentUser ? 'read-only' : ''}`}
-                              onClick={() => {
-                                if (!currentUser) return navigate('/login');
-                                rateItem(ep.id, star === epRating ? 0 : star);
-                              }}
-                            />
-                          ))}
+                          {[1, 2, 3, 4, 5].map((starValue) => {
+                            const isFull = epRating >= starValue;
+                            const isHalf = epRating >= starValue - 0.5 && epRating < starValue;
+                            return (
+                              <div
+                                key={starValue}
+                                style={{ display: 'inline-flex', cursor: !currentUser ? 'default' : 'pointer' }}
+                                onClick={(e) => {
+                                  if (!currentUser) return navigate('/login');
+                                  const rect = e.currentTarget.getBoundingClientRect();
+                                  const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
+                                  const clickedRating = isLeftHalf ? starValue - 0.5 : starValue;
+                                  rateItem(ep.id, clickedRating === epRating ? 0 : clickedRating);
+                                }}
+                              >
+                                {isHalf ? (
+                                  <StarHalf 
+                                    size={20}
+                                    className={`star filled ${!currentUser ? 'read-only' : ''}`}
+                                  />
+                                ) : (
+                                  <Star 
+                                    size={20}
+                                    className={`star ${isFull ? 'filled' : ''} ${!currentUser ? 'read-only' : ''}`}
+                                  />
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                         <button 
                           className={`ep-watch-btn ${epWatched ? 'watched' : ''}`}
