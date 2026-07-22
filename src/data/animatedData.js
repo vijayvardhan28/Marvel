@@ -109,8 +109,7 @@ export const animatedData = [
       { "id": "anim4_s2_e6", "episodeNumber": 6, "title": "Episode 6" },
       { "id": "anim4_s2_e7", "episodeNumber": 7, "title": "Episode 7" },
       { "id": "anim4_s2_e8", "episodeNumber": 8, "title": "Episode 8" },
-      { "id": "anim4_s2_e9", "episodeNumber": 9, "title": "Episode 9" },
-      { "id": "anim4_s2_e10", "episodeNumber": 10, "title": "Episode 10" }
+      { "id": "anim4_s2_e9", "episodeNumber": 9, "title": "Episode 9" }
     ]
   },
   {
