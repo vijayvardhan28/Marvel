@@ -212,7 +212,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2021-01-15",
     "timelineOrder": 24,
-    "runtime": 350,
+    "runtime": 316,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BZTMxMmM1ODItMTZiMS00NjI1LWEwODctMjQ4ZjY4ODliNDI0XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
     "episodes": [
       {
@@ -309,7 +309,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2021-06-09",
     "timelineOrder": 26,
-    "runtime": 290,
+    "runtime": 284,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BYzA2YjM2ZWQtYTZhMS00OTI3LTlhYzQtZjBiZWZkMDdlNjA5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
     "episodes": [
       {
@@ -377,7 +377,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2021-11-24",
     "timelineOrder": 29,
-    "runtime": 280,
+    "runtime": 276,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BOGU5ZDBlOTAtOTZmYS00MWE0LTg0NzktNDcxZGJhN2FhZmM2XkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -482,7 +482,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2022-06-08",
     "timelineOrder": 33,
-    "runtime": 270,
+    "runtime": 269,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNzlkNjBmOWUtOTgzZS00OWIzLThkNWEtZTg5MGY2ODAyYzZjXkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -615,7 +615,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2023-06-21",
     "timelineOrder": 39,
-    "runtime": 270,
+    "runtime": 254,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNmYzYzA2NzMtOTVmMC00ZDY4LThlMDctZmUyN2NlMjQ2ODViXkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -706,7 +706,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2024-01-09",
     "timelineOrder": 42,
-    "runtime": 215,
+    "runtime": 200,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BOGFiYzI1ZDctM2U1Zi00ZWI5LWFiMmQtNGU0NTU5MTg3OWM3XkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -751,7 +751,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2024-09-18",
     "timelineOrder": 44,
-    "runtime": 320,
+    "runtime": 352,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BMDcyZTNjOTEtNzc5Yy00Y2UzLThkMWYtNTY4YmM4OWI5OTMzXkEyXkFqcGc@._V1_SX300.jpg",
     "episodes": [
       {
@@ -816,7 +816,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2025-03-04",
     "timelineOrder": 46,
-    "runtime": 400,
+    "runtime": 426,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
     "episodes": [
       {
@@ -931,7 +931,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2026-01-27",
     "timelineOrder": 50.5,
-    "runtime": 320,
+    "runtime": 245,
     "imageUrl": "/wonder.jpg",
     "episodes": [
       { "id": "s16_e1", "episodeNumber": 1, "title": "Episode 1" },
@@ -950,7 +950,7 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2026-03-01",
     "timelineOrder": 51,
-    "runtime": 400,
+    "runtime": 387,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDBkMWRhMzEtM2M0Ny00OGZhLThkZGMtMTY1NWUwZWNhODdiXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg",
     "episodes": [
       {
@@ -1011,7 +1011,7 @@ export const mcuData = [
     "type": "special",
     "releaseDate": "2026-06-13",
     "timelineOrder": 51.5,
-    "runtime": 52,
+    "runtime": 48,
     "imageUrl": "/punisher_one_last_kill.jpg"
   },
   {
