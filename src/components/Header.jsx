@@ -10,6 +10,7 @@ const Header = () => {
   
   const navItems = [
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
+    { path: '/the-marvel', label: 'The Marvel', icon: <Film size={20} /> },
     { path: '/timeline', label: 'MCU', icon: <Film size={20} /> },
     { path: '/fox', label: 'Fox', icon: <Film size={20} /> },
     { path: '/spiderman', label: 'Spider-Man', icon: <MonitorPlay size={20} /> },

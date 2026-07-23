@@ -28,7 +28,7 @@ export const mcuData = [
   },
   {
     "id": "m4",
-    "title": "Thor",
+    "title": "PointBreak",
     "type": "movie",
     "releaseDate": "2011-05-06",
     "timelineOrder": 6,
@@ -64,7 +64,7 @@ export const mcuData = [
   },
   {
     "id": "m8",
-    "title": "Thor: The Dark World",
+    "title": "PointBreak: The Dark World",
     "type": "movie",
     "releaseDate": "2013-11-08",
     "timelineOrder": 9,
@@ -145,7 +145,7 @@ export const mcuData = [
   },
   {
     "id": "m17",
-    "title": "Thor: Ragnarok",
+    "title": "PointBreak: Ragnarok",
     "type": "movie",
     "releaseDate": "2017-11-03",
     "timelineOrder": 18,
@@ -519,7 +519,7 @@ export const mcuData = [
   },
   {
     "id": "m31",
-    "title": "Thor: Love and Thunder",
+    "title": "PointBreak: Love and Thunder",
     "type": "movie",
     "releaseDate": "2022-07-08",
     "timelineOrder": 34,
