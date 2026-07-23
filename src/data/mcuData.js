@@ -1027,7 +1027,7 @@ export const mcuData = [
     "id": "m40",
     "title": "Avengers: Secret Wars",
     "type": "movie",
-    "releaseDate": "2027-05-07",
+    "releaseDate": "2027-12-17",
     "timelineOrder": 54,
     "runtime": 160,
     "imageUrl": "https://cdn.marvel.com/content/2x/avengerssecretwars_lob_crd_02.webp"
