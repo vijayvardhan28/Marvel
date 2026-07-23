@@ -36,6 +36,9 @@ const Header = () => {
               <span>{item.label}</span>
             </Link>
           ))}
+        </nav>
+
+        <div className="auth-links">
           {currentUser ? (
             <>
               <div className="nav-link" style={{ cursor: 'default', color: 'var(--color-primary)' }}>
@@ -57,7 +60,7 @@ const Header = () => {
               <span>Login</span>
             </Link>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
