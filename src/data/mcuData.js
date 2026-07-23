@@ -1018,7 +1018,7 @@ export const mcuData = [
     "id": "m39",
     "title": "Spider-Man: Brand New Day",
     "type": "movie",
-    "releaseDate": "2026-07-30",
+    "releaseDate": "2026-07-30T13:30:00+05:30",
     "timelineOrder": 52,
     "runtime": 135,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
