@@ -71,12 +71,22 @@
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
 }
 
+.mcu-badge {
+  background: linear-gradient(135deg, #e63946, #457b9d);
+  color: white;
+  box-shadow: 0 0 12px rgba(230, 57, 70, 0.5);
+}
+
 .delay-4 {
   animation-delay: 0.3s;
 }
 
 .delay-5 {
   animation-delay: 0.4s;
+}
+
+.delay-6 {
+  animation-delay: 0.5s;
 }
 
 .section-years {

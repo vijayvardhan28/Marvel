@@ -1,3 +1,42 @@
+export const mcuSpiderManData = [
+  {
+    "id": "m16",
+    "title": "Spider-Man: Homecoming",
+    "type": "movie",
+    "releaseDate": "2017-07-07",
+    "timelineOrder": 17,
+    "runtime": 133,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BODY2MTAzOTQ4M15BMl5BanBnXkFtZTgwNzg5MTE0MjI@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+  },
+  {
+    "id": "m23",
+    "title": "Spider-Man: Far From Home",
+    "type": "movie",
+    "releaseDate": "2019-07-02",
+    "timelineOrder": 23,
+    "runtime": 129,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg"
+  },
+  {
+    "id": "m27",
+    "title": "Spider-Man: No Way Home",
+    "type": "movie",
+    "releaseDate": "2021-12-17",
+    "timelineOrder": 30,
+    "runtime": 148,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMmFiZGZjMmEtMTA0Ni00MzA2LTljMTYtZGI2MGJmZWYzZTQ2XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg"
+  },
+  {
+    "id": "m39",
+    "title": "Spider-Man: Brand New Day",
+    "type": "movie",
+    "releaseDate": "2026-07-30T13:30:00+05:30",
+    "timelineOrder": 52,
+    "runtime": 135,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+  }
+];
+
 export const mcuData = [
   {
     "id": "m1",
@@ -134,15 +173,7 @@ export const mcuData = [
     "runtime": 136,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg"
   },
-  {
-    "id": "m16",
-    "title": "Spider-Man: Homecoming",
-    "type": "movie",
-    "releaseDate": "2017-07-07",
-    "timelineOrder": 17,
-    "runtime": 133,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BODY2MTAzOTQ4M15BMl5BanBnXkFtZTgwNzg5MTE0MjI@._V1_QL75_UX380_CR0,0,380,562_.jpg"
-  },
+  mcuSpiderManData[0],
   {
     "id": "m17",
     "title": "PointBreak: Ragnarok",
@@ -197,15 +228,7 @@ export const mcuData = [
     "runtime": 181,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_QL75_UX380_CR0,0,380,562_.jpg"
   },
-  {
-    "id": "m23",
-    "title": "Spider-Man: Far From Home",
-    "type": "movie",
-    "releaseDate": "2019-07-02",
-    "timelineOrder": 23,
-    "runtime": 129,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMzNhNTE0NWQtN2E1Ny00NjcwLTg1YTctMGY1NmMwODJmY2NmXkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg"
-  },
+  mcuSpiderManData[1],
   {
     "id": "s1",
     "title": "WandaVision",
@@ -417,15 +440,7 @@ export const mcuData = [
       }
     ]
   },
-  {
-    "id": "m27",
-    "title": "Spider-Man: No Way Home",
-    "type": "movie",
-    "releaseDate": "2021-12-17",
-    "timelineOrder": 30,
-    "runtime": 148,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMmFiZGZjMmEtMTA0Ni00MzA2LTljMTYtZGI2MGJmZWYzZTQ2XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg"
-  },
+  mcuSpiderManData[2],
   {
     "id": "s7",
     "title": "Moon Knight",
@@ -1014,15 +1029,7 @@ export const mcuData = [
     "runtime": 48,
     "imageUrl": "/punisher_one_last_kill.jpg"
   },
-  {
-    "id": "m39",
-    "title": "Spider-Man: Brand New Day",
-    "type": "movie",
-    "releaseDate": "2026-07-30T13:30:00+05:30",
-    "timelineOrder": 52,
-    "runtime": 135,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-  },
+  mcuSpiderManData[3],
   {
     "id": "m40",
     "title": "Avengers: Secret Wars",

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData, venomData } from '../data/spiderManData';
+import { mcuSpiderManData } from '../data/mcuData';
 import { useMCU } from '../context/MCUContext';
 import MediaCard from '../components/MediaCard';
 import './Timeline.css';
@@ -26,6 +27,7 @@ const SpiderManTimeline = () => {
   const verseFiltered    = useMemo(() => filterData([...spiderVerseData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
   const yfnsmFiltered    = useMemo(() => filterData([...yfnsmData]), [watchFilter, userData]);
   const venomFiltered    = useMemo(() => filterData([...venomData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
+  const mcuFiltered      = useMemo(() => filterData([...mcuSpiderManData].sort((a, b) => a.timelineOrder - b.timelineOrder)), [watchFilter, userData]);
 
   const Section = ({ children, badge, badgeClass, years, delay }) => (
     <div className={`spiderman-section animate-fade-in ${delay}`}>
@@ -83,18 +85,23 @@ const SpiderManTimeline = () => {
         <Grid items={amazingFiltered} />
       </Section>
 
+      {/* MCU Spider-Man */}
+      <Section badge="Marvel Cinematic Universe" badgeClass="mcu-badge" years="2017 – 2021" delay="delay-3">
+        <Grid items={mcuFiltered} />
+      </Section>
+
       {/* Spider-Verse */}
-      <Section badge="🕷 Spider-Verse" badgeClass="verse-badge" years="2018 – Present" delay="delay-3">
+      <Section badge="🕷 Spider-Verse" badgeClass="verse-badge" years="2018 – Present" delay="delay-4">
         <Grid items={verseFiltered} />
       </Section>
 
       {/* Venom Trilogy */}
-      <Section badge="Venom Trilogy" badgeClass="venom-badge" years="2018 – 2024" delay="delay-4">
+      <Section badge="Venom Trilogy" badgeClass="venom-badge" years="2018 – 2024" delay="delay-5">
         <Grid items={venomFiltered} />
       </Section>
 
       {/* Your Friendly Neighborhood Spider-Man */}
-      <Section badge="Your Friendly Neighborhood Spider-Man" badgeClass="yfnsm-badge" years="2025 – Present" delay="delay-5">
+      <Section badge="Your Friendly Neighborhood Spider-Man" badgeClass="yfnsm-badge" years="2025 – Present" delay="delay-6">
         <Grid items={yfnsmFiltered} />
       </Section>
     </div>
