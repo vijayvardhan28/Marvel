@@ -32,7 +32,7 @@ export const mcuSpiderManData = [
     "type": "movie",
     "releaseDate": "2026-07-30T13:30:00+05:30",
     "timelineOrder": 52,
-    "runtime": 135,
+    "runtime": 145,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWNjYWM3NWItOGE0ZS00MWRjLThiZWEtYjc4ZmNmMmU5ZTVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
   }
 ];
@@ -1017,8 +1017,8 @@ export const mcuData = [
     "releaseDate": "2026-12-18",
     "premiereTime": "2026-12-18T00:00:00-05:00",
     "timelineOrder": 53,
-    "runtime": 150,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BM2E1ZTJiZTgtZGI2Zi00MzAxLThhZjktMmU3M2E3Yzk3NjUxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+    "runtime": 0,
+    "imageUrl": "https://pbs.twimg.com/media/HOHfPOvWAAADAcT?format=jpg&name=small"
   },
   {
     "id": "sp1",
@@ -1036,8 +1036,26 @@ export const mcuData = [
     "type": "movie",
     "releaseDate": "2027-12-17",
     "timelineOrder": 54,
-    "runtime": 160,
+    "runtime": 0,
     "imageUrl": "https://cdn.marvel.com/content/2x/avengerssecretwars_lob_crd_02.webp"
+  },
+  {
+    "id": "m41",
+    "title": "Ghost Rider",
+    "type": "movie",
+    "releaseDate": "2028-07-01",
+    "timelineOrder": 55,
+    "runtime": 0,
+    "imageUrl": "https://pbs.twimg.com/media/HOHaVHYWYAAp95p?format=jpg&name=small"
+  },
+  {
+    "id": "m42",
+    "title": "Black Panther 3",
+    "type": "movie",
+    "releaseDate": "2028-12-15",
+    "timelineOrder": 56,
+    "runtime": 0,
+    "imageUrl": "https://pbs.twimg.com/media/HOHhDvsWUAAawO3?format=jpg&name=small"
   }
 ];
 
