@@ -6,6 +6,7 @@ import { foxData } from '../data/foxData';
 import { animatedData } from '../data/animatedData';
 import { defendersData } from '../data/defendersData';
 import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData, venomData } from '../data/spiderManData';
+import { legacyData } from '../data/legacyData';
 import { Clock, CheckCircle, TrendingUp } from 'lucide-react';
 import './Dashboard.css';
 
@@ -13,24 +14,27 @@ const Dashboard = () => {
   const { userData } = useMCU();
   const navigate = useNavigate();
 
+  const dashboardMcuData = mcuData.filter(item => !item.excludeFromDashboard);
   const spiderManData = [...raimiSpiderManData, ...amazingSpiderManData, ...spiderVerseData, ...yfnsmData, ...venomData];
-  const totalRuntime = calculateTotalRuntime([...mcuData, ...foxData, ...spiderManData, ...animatedData, ...defendersData]);
+  const totalRuntime = calculateTotalRuntime([...dashboardMcuData, ...foxData, ...spiderManData, ...animatedData, ...defendersData, ...legacyData]);
   
-  const watchedMcuItems = mcuData.filter(item => userData[item.id]?.watched);
+  const watchedMcuItems = dashboardMcuData.filter(item => userData[item.id]?.watched);
   const watchedFoxItems = foxData.filter(item => userData[item.id]?.watched);
   const watchedSpiderManItems = spiderManData.filter(item => userData[item.id]?.watched);
   const watchedAnimatedItems = animatedData.filter(item => userData[item.id]?.watched);
   const watchedDefendersItems = defendersData.filter(item => userData[item.id]?.watched);
-  const allWatchedItems = [...watchedMcuItems, ...watchedFoxItems, ...watchedSpiderManItems, ...watchedAnimatedItems, ...watchedDefendersItems];
+  const watchedLegacyItems = legacyData.filter(item => userData[item.id]?.watched);
+  const allWatchedItems = [...watchedMcuItems, ...watchedFoxItems, ...watchedSpiderManItems, ...watchedAnimatedItems, ...watchedDefendersItems, ...watchedLegacyItems];
   
   const watchedRuntime = calculateTotalRuntime(allWatchedItems);
   const remainingRuntime = totalRuntime - watchedRuntime;
   
-  const mcuProgress = (calculateTotalRuntime(watchedMcuItems) / calculateTotalRuntime(mcuData)) * 100 || 0;
+  const mcuProgress = (calculateTotalRuntime(watchedMcuItems) / calculateTotalRuntime(dashboardMcuData)) * 100 || 0;
   const foxProgress = (calculateTotalRuntime(watchedFoxItems) / calculateTotalRuntime(foxData)) * 100 || 0;
   const spiderManProgress = (calculateTotalRuntime(watchedSpiderManItems) / calculateTotalRuntime(spiderManData)) * 100 || 0;
   const animatedProgress = (calculateTotalRuntime(watchedAnimatedItems) / calculateTotalRuntime(animatedData)) * 100 || 0;
   const defendersProgress = (calculateTotalRuntime(watchedDefendersItems) / calculateTotalRuntime(defendersData)) * 100 || 0;
+  const legacyProgress = (calculateTotalRuntime(watchedLegacyItems) / calculateTotalRuntime(legacyData)) * 100 || 0;
   const totalProgress = (watchedRuntime / totalRuntime) * 100 || 0;
 
   return (
@@ -54,8 +58,8 @@ const Dashboard = () => {
           >
             <div className="stat-icon bg-primary"><CheckCircle size={24}/></div>
             <div className="stat-info">
-              <h3>Watched</h3>
-              <p className="stat-value">{allWatchedItems.length} <span className="stat-total">/ {mcuData.length + foxData.length + spiderManData.length + animatedData.length + defendersData.length}</span></p>
+               <h3>Watched</h3>
+              <p className="stat-value">{allWatchedItems.length} <span className="stat-total">/ {dashboardMcuData.length + foxData.length + spiderManData.length + animatedData.length + defendersData.length + legacyData.length}</span></p>
             </div>
           </div>
 
@@ -133,10 +137,21 @@ const Dashboard = () => {
             <h3>🎨 Animated Series Progress</h3>
             <span>{animatedProgress.toFixed(1)}%</span>
           </div>
-          <div className="progress-bar-container">
+          <div className="progress-bar-container" style={{ marginBottom: '2rem' }}>
             <div 
               className="progress-bar-fill" 
               style={{ width: `${animatedProgress}%`, background: 'linear-gradient(90deg, #10b981, #34d399)', boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)' }}
+            ></div>
+          </div>
+
+          <div className="progress-header">
+            <h3>🦇 Legacy Marvel Progress</h3>
+            <span>{legacyProgress.toFixed(1)}%</span>
+          </div>
+          <div className="progress-bar-container">
+            <div 
+              className="progress-bar-fill" 
+              style={{ width: `${legacyProgress}%`, background: 'linear-gradient(90deg, #9ca3af, #4b5563)', boxShadow: '0 0 10px rgba(156, 163, 175, 0.5)' }}
             ></div>
           </div>
         </section>

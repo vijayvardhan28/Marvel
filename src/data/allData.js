@@ -3,6 +3,7 @@ import { foxData } from './foxData';
 import { raimiSpiderManData, amazingSpiderManData, spiderVerseData, yfnsmData, venomData } from './spiderManData';
 import { animatedData } from './animatedData';
 import { defendersData } from './defendersData';
+import { legacyData } from './legacyData';
 
 export const allMediaData = [
   ...mcuData,
@@ -13,5 +14,6 @@ export const allMediaData = [
   ...yfnsmData,
   ...venomData,
   ...defendersData,
-  ...animatedData
+  ...animatedData,
+  ...legacyData
 ];

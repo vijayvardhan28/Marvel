@@ -12,10 +12,11 @@ const Header = () => {
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { path: '/the-marvel', label: 'The Marvel', icon: <Film size={20} /> },
     { path: '/timeline', label: 'MCU', icon: <Film size={20} /> },
-    { path: '/fox', label: 'Fox', icon: <Film size={20} /> },
     { path: '/spiderman', label: 'Spider-Man', icon: <MonitorPlay size={20} /> },
-    { path: '/animated', label: 'Animated', icon: <MonitorPlay size={20} /> },
-    { path: '/defenders', label: 'Defenders', icon: <Film size={20} /> }
+    { path: '/fox', label: 'X-Men', icon: <Film size={20} /> },
+    { path: '/legacy', label: 'Legacy Marvel', icon: <Film size={20} /> },
+    { path: '/defenders', label: 'Defenders', icon: <Film size={20} /> },
+    { path: '/animated', label: 'Animated', icon: <MonitorPlay size={20} /> }
   ];
 
   return (

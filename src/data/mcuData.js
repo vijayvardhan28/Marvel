@@ -1031,6 +1031,26 @@ export const mcuData = [
   },
   mcuSpiderManData[3],
   {
+    "id": "m39_encore",
+    "title": "Avengers:Endgame Encore",
+    "type": "movie",
+    "releaseDate": "2026-09-25",
+    "timelineOrder": 52.2,
+    "runtime": 0,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+    "excludeFromDashboard": true
+  },
+  {
+    "id": "s17",
+    "title": "Vision Quest",
+    "type": "series",
+    "releaseDate": "2026-10-14",
+    "timelineOrder": 52.5,
+    "runtime": 0,
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BZGZkNThlYjYtOGI0MS00NGY2LTgwZTAtZWYwZTFlNTcxZDFhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "episodes": []
+  },
+  {
     "id": "m40",
     "title": "Avengers: Secret Wars",
     "type": "movie",

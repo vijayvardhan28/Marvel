@@ -9,6 +9,7 @@ import AnimatedTimeline from './pages/AnimatedTimeline';
 import DefendersTimeline from './pages/DefendersTimeline';
 import DetailView from './pages/DetailView';
 import TheMarvelTimeline from './pages/TheMarvelTimeline';
+import LegacyTimeline from './pages/LegacyTimeline';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import './App.css';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/spiderman" element={<SpiderManTimeline />} />
           <Route path="/animated" element={<AnimatedTimeline />} />
           <Route path="/defenders" element={<DefendersTimeline />} />
+          <Route path="/legacy" element={<LegacyTimeline />} />
           <Route path="/detail/:id" element={<DetailView />} />
         </Routes>
       </main>

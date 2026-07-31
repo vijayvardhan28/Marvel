@@ -106,23 +106,5 @@ export const foxData = [
     "timelineOrder": 12,
     "runtime": 119,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNGY3N2ZhYmMtYTlmYi00ZWIzLWJiZWMtMjgxMjljYTk3MDAwXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
-  },
-  {
-    "id": "f13",
-    "title": "Fantastic Four",
-    "type": "movie",
-    "releaseDate": "2005-07-08",
-    "timelineOrder": 9,
-    "runtime": 106,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNjY2YmZmMzUtZWY5Mi00MzI3LTljOTgtYTMwMWY1ODI5ZWY5XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
-  },
-  {
-    "id": "f14",
-    "title": "Fantastic Four: Rise of the Silver Surfer",
-    "type": "movie",
-    "releaseDate": "2007-06-15",
-    "timelineOrder": 10,
-    "runtime": 92,
-    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNmZmMTU0OGQtOWRmNS00ZjA1LWJkM2EtYmUwNGEzMjIyZDM1XkEyXkFqcGc@._V1_QL75_UY562_CR5,0,380,562_.jpg"
   }
 ];
