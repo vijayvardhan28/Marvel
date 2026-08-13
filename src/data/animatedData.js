@@ -98,7 +98,7 @@ export const animatedData = [
     "type": "series",
     "releaseDate": "2026-07-01",
     "timelineOrder": 4.1,
-    "runtime": 300,
+    "runtime": 265,
     "imageUrl": "https://static.tvmaze.com/uploads/images/original_untouched/504/1261028.jpg",
     "episodes": [
       { "id": "anim4_s2_e1", "episodeNumber": 1, "title": "Episode 1" },
