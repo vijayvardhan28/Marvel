@@ -78,7 +78,7 @@ export const spiderVerseData = [
     "releaseDate": "2027-06-18",
     "timelineOrder": 3,
     "runtime": 120,
-    "imageUrl": "https://image.tmdb.org/t/p/w500/yweju3H52GA1PTZ2yOd3xXP5B3a.jpg"
+    "imageUrl": "https://i.pinimg.com/736x/4c/f4/14/4cf414dd514c030954310f7d4125d451.jpg"
   }
 ];
 
