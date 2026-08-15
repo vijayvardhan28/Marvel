@@ -106,5 +106,14 @@ export const foxData = [
     "timelineOrder": 12,
     "runtime": 119,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BNGY3N2ZhYmMtYTlmYi00ZWIzLWJiZWMtMjgxMjljYTk3MDAwXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg"
+  },
+  {
+    "id": "f13",
+    "title": "X-Men",
+    "type": "movie",
+    "releaseDate": "2028-05-05",
+    "timelineOrder": 14,
+    "runtime": null,
+    "imageUrl": "https://preview.redd.it/official-new-logo-for-marvel-studios-x-men-coming-may-5-2028-v0-0hcml41vrgjh1.jpeg?width=1080&crop=smart&auto=webp&s=b71907a0173ea9eb3b13214a83fb7c4013f33647"
   }
 ];
