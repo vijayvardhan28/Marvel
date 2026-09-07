@@ -5,11 +5,23 @@ import { useMCU } from '../context/MCUContext';
 import { formatRuntime } from '../data/mcuData';
 import './MediaCard.css';
 
-const MediaCard = ({ item, index }) => {
+const MediaCard = ({ item, index, readOnly = false, customUserData = null }) => {
   const { userData, markWatched } = useMCU();
-  const itemData = userData[item.id] || {};
+  
+  const effectiveUserData = customUserData || userData;
+  const itemData = effectiveUserData[item.id] || {};
+  
   const isWatched = itemData.watched || false;
   const customRating = itemData.customRating;
+
+  let displayRating = itemData.rating || 0;
+  if (item.type === 'series' && item.episodes?.length > 0) {
+    const ratedEps = item.episodes.filter(ep => effectiveUserData[ep.id]?.rating > 0);
+    if (ratedEps.length > 0) {
+      const sum = ratedEps.reduce((acc, ep) => acc + effectiveUserData[ep.id].rating, 0);
+      displayRating = (sum / ratedEps.length).toFixed(1);
+    }
+  }
 
   const isReleased = new Date(item.releaseDate) <= new Date();
 
@@ -31,7 +43,12 @@ const MediaCard = ({ item, index }) => {
   };
 
   return (
-    <Link to={`/detail/${item.id}`} className="media-card-link animate-fade-in" style={{animationDelay: `${index * 0.05}s`}}>
+    <Link 
+      to={readOnly ? "#" : `/detail/${item.id}`} 
+      className="media-card-link animate-fade-in" 
+      style={{animationDelay: `${index * 0.05}s`, cursor: readOnly ? 'default' : 'pointer'}}
+      onClick={(e) => { if (readOnly) e.preventDefault(); }}
+    >
       <div className={`media-card ${isWatched ? 'watched' : ''} ${!isReleased ? 'unreleased' : ''}`}>
         <div className="poster-container" style={{ background: item.imageUrl ? `url(${item.imageUrl}) center/cover no-repeat` : getGradient(item.id) }}>
           {customRating && isReleased ? (
@@ -57,27 +74,29 @@ const MediaCard = ({ item, index }) => {
             {isReleased ? (
               <>
                 <span className="info-item"><Clock size={14} /> {formatRuntime(item.runtime)}</span>
-                {itemData.rating && <span className="info-item rating"><Star size={14} className="star-filled" /> {itemData.rating}/5</span>}
+                {displayRating > 0 && <span className="info-item rating"><Star size={14} className="star-filled" /> {displayRating}/5</span>}
               </>
             ) : (
               <span className="info-item release-date-info"><Calendar size={14} /> {formatReleaseDate(item.releaseDate)}</span>
             )}
           </div>
           <div className="card-actions">
-            {isReleased ? (
-              <button 
-                className={`watch-btn ${isWatched ? 'is-watched' : ''}`}
-                onClick={handleWatchToggle}
-              >
-                {(item.title.includes('Eww-Hulk') || item.title.includes('niggaheart')) ? 
-                  (isWatched ? <><CheckCircle size={16}/> Marked as ignore this shit</> : <><PlayCircle size={16}/> Mark as ignore this shit</>) :
-                  (isWatched ? <><CheckCircle size={16}/> Watched</> : <><PlayCircle size={16}/> Mark Watched</>)
-                }
-              </button>
-            ) : (
-              <button className="watch-btn unreleased-btn" disabled>
-                <Calendar size={16}/> Not Released Yet
-              </button>
+            {!readOnly && (
+              isReleased ? (
+                <button 
+                  className={`watch-btn ${isWatched ? 'is-watched' : ''}`}
+                  onClick={handleWatchToggle}
+                >
+                  {(item.title.includes('Eww-Hulk') || item.title.includes('niggaheart')) ? 
+                    (isWatched ? <><CheckCircle size={16}/> Marked as ignore this shit</> : <><PlayCircle size={16}/> Mark as ignore this shit</>) :
+                    (isWatched ? <><CheckCircle size={16}/> Watched</> : <><PlayCircle size={16}/> Mark Watched</>)
+                  }
+                </button>
+              ) : (
+                <button className="watch-btn unreleased-btn" disabled>
+                  <Calendar size={16}/> Not Released Yet
+                </button>
+              )
             )}
           </div>
         </div>

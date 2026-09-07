@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Film, MonitorPlay, LayoutDashboard, LogIn, LogOut, User } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Film, MonitorPlay, LayoutDashboard, LogIn, LogOut, User, Search } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
+  const [searchQuery, setSearchQuery] = React.useState('');
   
   const navItems = [
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
@@ -18,6 +20,14 @@ const Header = () => {
     { path: '/defenders', label: 'Defenders', icon: <Film size={20} /> },
     { path: '/animated', label: 'Animated', icon: <MonitorPlay size={20} /> }
   ];
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/user/${searchQuery.trim()}`);
+      setSearchQuery('');
+    }
+  };
 
   return (
     <header className="app-header glass-panel">
@@ -38,6 +48,17 @@ const Header = () => {
             </Link>
           ))}
         </nav>
+
+        <form onSubmit={handleSearch} className="search-form" style={{ display: 'flex', alignItems: 'center', marginLeft: 'auto', marginRight: '1rem', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', padding: '0.2rem 0.8rem' }}>
+          <Search size={16} style={{ color: 'var(--color-text-muted)' }} />
+          <input 
+            type="text" 
+            placeholder="Search User ID..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.3rem 0.5rem', outline: 'none', width: '150px' }}
+          />
+        </form>
 
         <div className="auth-links">
           {currentUser ? (

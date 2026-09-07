@@ -3,7 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { allMediaData } from '../data/allData';
 import { useMCU } from '../context/MCUContext';
 import { useAuth } from '../context/AuthContext';
-import { Star, StarHalf, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer } from 'lucide-react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
+import { Star, StarHalf, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer, Users } from 'lucide-react';
 import './DetailView.css';
 
 // Countdown timer hook
@@ -40,6 +42,62 @@ const DetailView = () => {
   
   const [review, setReview] = useState(itemData.review || '');
   const [hoverRating, setHoverRating] = useState(0);
+  
+  const { following } = useMCU();
+  const [friendsRatings, setFriendsRatings] = useState([]);
+
+  useEffect(() => {
+    if (!currentUser || !following || following.length === 0) return;
+
+    const fetchFriendsRatings = async () => {
+      const ratings = [];
+      for (const fId of following) {
+        try {
+          const d = await getDoc(doc(db, 'users', fId));
+          if (d.exists()) {
+            const data = d.data();
+            const fItemData = data.watchData?.[id];
+            let ratingToDisplay = fItemData?.rating || 0;
+            const episodeRatings = [];
+            
+            const isSeries = item.type === 'series';
+            if (isSeries && item.episodes?.length > 0) {
+              const friendRatedEps = item.episodes.filter(ep => data.watchData?.[ep.id]?.rating > 0);
+              if (friendRatedEps.length > 0) {
+                const sum = friendRatedEps.reduce((acc, ep) => acc + data.watchData[ep.id].rating, 0);
+                ratingToDisplay = (sum / friendRatedEps.length).toFixed(1);
+                
+                friendRatedEps.forEach(ep => {
+                  episodeRatings.push({
+                    epId: ep.id,
+                    episodeNumber: ep.episodeNumber,
+                    title: ep.title,
+                    rating: data.watchData[ep.id].rating
+                  });
+                });
+              }
+            }
+
+            if ((fItemData && fItemData.customRating) || ratingToDisplay > 0) {
+              ratings.push({
+                userId: fId,
+                displayName: data.displayName || 'Agent',
+                rating: ratingToDisplay,
+                customRating: fItemData?.customRating,
+                review: fItemData?.review,
+                episodeRatings: episodeRatings
+              });
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      setFriendsRatings(ratings);
+    };
+
+    fetchFriendsRatings();
+  }, [id, following, currentUser]);
 
   useEffect(() => {
     if (!item) navigate('/timeline');
@@ -322,6 +380,54 @@ const DetailView = () => {
                 )}
               </div>
             </>
+          )}
+
+          {/* Friends Ratings Section */}
+          {isReleased && currentUser && friendsRatings.length > 0 && (
+            <div className="friends-ratings-section" style={{ marginTop: '2rem', background: 'rgba(255,255,255,0.03)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', fontSize: '1.5rem' }}>
+                <Users size={24} style={{ color: 'var(--color-primary)' }}/> Following Ratings
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {friendsRatings.map(fr => (
+                  <div key={fr.userId} style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                      <strong style={{ fontSize: '1.1rem', color: 'white' }}>{fr.displayName}</strong>
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        {fr.rating > 0 && (
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', color: '#f59e0b', fontWeight: 'bold' }}>
+                            <Star size={16} className="star-filled" /> {fr.rating}/5
+                          </span>
+                        )}
+                        {fr.customRating && (
+                          <span className={`rating-stamp stamp-${fr.customRating.toLowerCase()}`} style={{ transform: 'none', position: 'static', padding: '0.2rem 0.5rem', fontSize: '0.8rem', opacity: 1 }}>
+                            {fr.customRating}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {fr.review && (
+                      <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', margin: 0, fontStyle: 'italic' }}>
+                        "{fr.review}"
+                      </p>
+                    )}
+                    {fr.episodeRatings && fr.episodeRatings.length > 0 && (
+                      <div style={{ marginTop: '1rem', background: 'rgba(255,255,255,0.05)', padding: '0.8rem', borderRadius: '8px' }}>
+                        <h5 style={{ margin: '0 0 0.5rem 0', color: 'var(--color-text-muted)', fontSize: '0.85rem', textTransform: 'uppercase' }}>Episode Ratings</h5>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.5rem' }}>
+                          {fr.episodeRatings.map(ep => (
+                            <div key={ep.epId} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', background: 'rgba(0,0,0,0.3)', padding: '0.4rem 0.6rem', borderRadius: '4px' }}>
+                              <span style={{ color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={ep.title}>Ep {ep.episodeNumber}</span>
+                              <span style={{ color: '#f59e0b', fontWeight: 'bold' }}><Star size={12} className="star-filled" style={{ display: 'inline', verticalAlign: 'text-top' }}/> {ep.rating}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* Episode List Section */}

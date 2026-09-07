@@ -12,6 +12,7 @@ import TheMarvelTimeline from './pages/TheMarvelTimeline';
 import LegacyTimeline from './pages/LegacyTimeline';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import UserProfile from './pages/UserProfile';
 import './App.css';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/defenders" element={<DefendersTimeline />} />
           <Route path="/legacy" element={<LegacyTimeline />} />
           <Route path="/detail/:id" element={<DetailView />} />
+          <Route path="/user/:searchId" element={<UserProfile />} />
         </Routes>
       </main>
     </div>

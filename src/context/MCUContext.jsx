@@ -11,6 +11,7 @@ export const MCUProvider = ({ children }) => {
   const { currentUser } = useAuth();
   
   const [userData, setUserData] = useState({});
+  const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // Load user data from Firestore whenever the logged-in user changes
@@ -27,8 +28,10 @@ export const MCUProvider = ({ children }) => {
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           setUserData(userDoc.data().watchData || {});
+          setFollowing(userDoc.data().following || []);
         } else {
           setUserData({});
+          setFollowing([]);
         }
       } catch (error) {
         console.error("Failed to load user data from Firestore:", error);
@@ -47,7 +50,11 @@ export const MCUProvider = ({ children }) => {
     const saveUserData = async () => {
       try {
         const userDocRef = doc(db, 'users', currentUser.id);
-        await setDoc(userDocRef, { watchData: userData }, { merge: true });
+        await setDoc(userDocRef, { 
+          watchData: userData,
+          following: following,
+          displayName: currentUser.name || 'Agent'
+        }, { merge: true });
       } catch (error) {
         console.error("Failed to save user data to Firestore:", error);
       }
@@ -56,7 +63,7 @@ export const MCUProvider = ({ children }) => {
     // Debounce: wait 500ms after the last change before saving
     const timeout = setTimeout(saveUserData, 500);
     return () => clearTimeout(timeout);
-  }, [userData, currentUser, loading]);
+  }, [userData, following, currentUser, loading]);
 
   const updateItem = (id, data) => {
     if (!currentUser) return;
@@ -85,13 +92,26 @@ export const MCUProvider = ({ children }) => {
     updateItem(id, { customRating, watched: true });
   };
 
+  const toggleFollow = (targetUserId) => {
+    if (!currentUser) return;
+    setFollowing(prev => {
+      if (prev.includes(targetUserId)) {
+        return prev.filter(id => id !== targetUserId);
+      } else {
+        return [...prev, targetUserId];
+      }
+    });
+  };
+
   const value = {
     userData,
     updateItem,
     markWatched,
     rateItem,
     reviewItem,
-    setCustomRating
+    setCustomRating,
+    following,
+    toggleFollow
   };
 
   return (
