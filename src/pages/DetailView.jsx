@@ -8,7 +8,7 @@ import { db } from '../firebase/config';
 import { Star, StarHalf, ArrowLeft, CheckCircle, Clock, Tv, Lock, Calendar, Timer, Users } from 'lucide-react';
 import './DetailView.css';
 
-// Countdown timer hook
+// Countdown timer hook for full item
 const useCountdown = (targetDate) => {
   const [timeLeft, setTimeLeft] = useState({});
 
@@ -29,6 +29,182 @@ const useCountdown = (targetDate) => {
   }, [targetDate]);
 
   return timeLeft;
+};
+
+// Countdown timer hook for individual episodes
+const useEpisodeCountdown = (targetDateStr) => {
+  const getRemaining = () => {
+    if (!targetDateStr) return null;
+    const diff = new Date(targetDateStr).getTime() - Date.now();
+    if (diff <= 0) return null;
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(getRemaining);
+
+  useEffect(() => {
+    if (!targetDateStr) {
+      setTimeLeft(null);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      const remaining = getRemaining();
+      setTimeLeft(remaining);
+      if (!remaining) {
+        clearInterval(timer);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [targetDateStr]);
+
+  return timeLeft;
+};
+
+// Episode Row Component with real-time timer & conditional rating unlock
+const EpisodeRow = ({ ep, userData, currentUser, navigate, rateItem, markWatched }) => {
+  const epData = userData[ep.id] || {};
+  const epRating = epData.rating || 0;
+  const epWatched = epData.watched || false;
+
+  const timeLeft = useEpisodeCountdown(ep.releaseDate);
+  const isReleased = !ep.releaseDate || !timeLeft;
+
+  const [hoverRating, setHoverRating] = useState(0);
+
+  const formatAirDate = (dateStr) => {
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  return (
+    <div className={`episode-item ${epWatched ? 'watched' : ''} ${!isReleased ? 'upcoming-episode' : ''}`}>
+      <div className="episode-info">
+        <div className="episode-meta-row">
+          <span className="episode-number">Episode {ep.episodeNumber}</span>
+          {ep.releaseDate && (
+            <span className={`episode-status-badge ${isReleased ? 'badge-released' : 'badge-upcoming'}`}>
+              {isReleased ? (
+                'Released'
+              ) : (
+                <>
+                  <Calendar size={12} /> Airs {formatAirDate(ep.releaseDate)}
+                </>
+              )}
+            </span>
+          )}
+        </div>
+        <h4 className="episode-title">{ep.title}</h4>
+      </div>
+
+      <div className="episode-actions">
+        {!isReleased ? (
+          <div className="episode-upcoming-controls">
+            <div className="episode-timer-pill" title={`Releases on ${formatAirDate(ep.releaseDate)}`}>
+              <Timer size={14} className="timer-pulse-icon" />
+              <span className="timer-label">Airs In</span>
+              <span className="timer-countdown">
+                {timeLeft.days > 0 && <span><strong>{timeLeft.days}</strong>d </span>}
+                <span><strong>{String(timeLeft.hours).padStart(2, '0')}</strong>h </span>
+                <span><strong>{String(timeLeft.minutes).padStart(2, '0')}</strong>m </span>
+                <span><strong>{String(timeLeft.seconds).padStart(2, '0')}</strong>s</span>
+              </span>
+            </div>
+            <div 
+              className="mini-stars locked" 
+              title={`Rating opens when episode airs on ${formatAirDate(ep.releaseDate)}`}
+            >
+              {[1, 2, 3, 4, 5].map((starValue) => (
+                <Star 
+                  key={starValue} 
+                  size={20} 
+                  className="star locked-star" 
+                />
+              ))}
+            </div>
+            <button 
+              className="ep-watch-btn locked-watch-btn" 
+              disabled 
+              title={`Locked until episode airs on ${formatAirDate(ep.releaseDate)}`}
+            >
+              <Lock size={18} />
+            </button>
+          </div>
+        ) : (
+          <div className="episode-released-controls">
+            <div className="mini-stars">
+              {[1, 2, 3, 4, 5].map((starValue) => {
+                const currentRating = hoverRating || epRating;
+                const isFull = currentRating >= starValue;
+                const isHalf = currentRating >= starValue - 0.5 && currentRating < starValue;
+                return (
+                  <div
+                    key={starValue}
+                    style={{ display: 'inline-flex', cursor: !currentUser ? 'default' : 'pointer' }}
+                    onMouseMove={(e) => {
+                      if (currentUser) {
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
+                        setHoverRating(isLeftHalf ? starValue - 0.5 : starValue);
+                      }
+                    }}
+                    onMouseLeave={() => currentUser && setHoverRating(0)}
+                    onClick={(e) => {
+                      if (!currentUser) return navigate('/login');
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
+                      const clickedRating = isLeftHalf ? starValue - 0.5 : starValue;
+                      rateItem(ep.id, clickedRating === epRating ? 0 : clickedRating);
+                    }}
+                    title={currentUser ? `Rate ${starValue} star${starValue > 1 ? 's' : ''}` : 'Log in to rate'}
+                  >
+                    {isHalf ? (
+                      <StarHalf 
+                        size={20}
+                        className={`star filled ${!currentUser ? 'read-only' : ''}`}
+                      />
+                    ) : (
+                      <Star 
+                        size={20}
+                        className={`star ${isFull ? 'filled' : ''} ${!currentUser ? 'read-only' : ''}`}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+              {epRating > 0 && (
+                <span className="ep-rating-badge">{epRating}/5</span>
+              )}
+            </div>
+            <button 
+              className={`ep-watch-btn ${epWatched ? 'watched' : ''}`}
+              onClick={() => currentUser ? markWatched(ep.id, !epWatched) : navigate('/login')}
+              title={!currentUser ? "Login to Track" : epWatched ? "Mark Unwatched" : "Mark Watched"}
+            >
+              {currentUser ? <CheckCircle size={24} /> : <Lock size={20} />}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 const DetailView = () => {
@@ -431,67 +607,23 @@ const DetailView = () => {
           )}
 
           {/* Episode List Section */}
-          {isSeries && item.episodes && item.id !== 's14' && isReleased && (
+          {isSeries && item.episodes && item.episodes.length > 0 && item.id !== 's14' && (
             <div className="episodes-section">
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', fontSize: '1.8rem' }}>
                 <Tv size={28} className="text-primary" /> Episodes
               </h3>
               <div className="episodes-list">
-                {item.episodes.map(ep => {
-                  const epData = userData[ep.id] || {};
-                  const epRating = epData.rating || 0;
-                  const epWatched = epData.watched || false;
-
-                  return (
-                    <div key={ep.id} className={`episode-item ${epWatched ? 'watched' : ''}`}>
-                      <div className="episode-info">
-                        <span className="episode-number">Episode {ep.episodeNumber}</span>
-                        <h4 className="episode-title">{ep.title}</h4>
-                      </div>
-                      
-                      <div className="episode-actions">
-                        <div className="mini-stars">
-                          {[1, 2, 3, 4, 5].map((starValue) => {
-                            const isFull = epRating >= starValue;
-                            const isHalf = epRating >= starValue - 0.5 && epRating < starValue;
-                            return (
-                              <div
-                                key={starValue}
-                                style={{ display: 'inline-flex', cursor: !currentUser ? 'default' : 'pointer' }}
-                                onClick={(e) => {
-                                  if (!currentUser) return navigate('/login');
-                                  const rect = e.currentTarget.getBoundingClientRect();
-                                  const isLeftHalf = (e.clientX - rect.left) < (rect.width / 2);
-                                  const clickedRating = isLeftHalf ? starValue - 0.5 : starValue;
-                                  rateItem(ep.id, clickedRating === epRating ? 0 : clickedRating);
-                                }}
-                              >
-                                {isHalf ? (
-                                  <StarHalf 
-                                    size={20}
-                                    className={`star filled ${!currentUser ? 'read-only' : ''}`}
-                                  />
-                                ) : (
-                                  <Star 
-                                    size={20}
-                                    className={`star ${isFull ? 'filled' : ''} ${!currentUser ? 'read-only' : ''}`}
-                                  />
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                        <button 
-                          className={`ep-watch-btn ${epWatched ? 'watched' : ''}`}
-                          onClick={() => currentUser ? markWatched(ep.id, !epWatched) : navigate('/login')}
-                          title={!currentUser ? "Login to Track" : epWatched ? "Mark Unwatched" : "Mark Watched"}
-                        >
-                          {currentUser ? <CheckCircle size={24} /> : <Lock size={20} />}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
+                {item.episodes.map(ep => (
+                  <EpisodeRow
+                    key={ep.id}
+                    ep={ep}
+                    userData={userData}
+                    currentUser={currentUser}
+                    navigate={navigate}
+                    rateItem={rateItem}
+                    markWatched={markWatched}
+                  />
+                ))}
               </div>
             </div>
           )}

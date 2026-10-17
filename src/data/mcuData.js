@@ -1046,9 +1046,58 @@ export const mcuData = [
     "type": "series",
     "releaseDate": "2026-10-14",
     "timelineOrder": 52.5,
-    "runtime": 0,
+    "runtime": 408,
     "imageUrl": "https://m.media-amazon.com/images/M/MV5BZGZkNThlYjYtOGI0MS00NGY2LTgwZTAtZWYwZTFlNTcxZDFhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "episodes": []
+    "episodes": [
+      {
+        "id": "s17_e1",
+        "episodeNumber": 1,
+        "title": "No Strings",
+        "releaseDate": "2026-10-14T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e2",
+        "episodeNumber": 2,
+        "title": "Theseus",
+        "releaseDate": "2026-10-14T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e3",
+        "episodeNumber": 3,
+        "title": "Reboot",
+        "releaseDate": "2026-10-21T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e4",
+        "episodeNumber": 4,
+        "title": "Malware",
+        "releaseDate": "2026-10-21T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e5",
+        "episodeNumber": 5,
+        "title": "Firewall",
+        "releaseDate": "2026-10-28T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e6",
+        "episodeNumber": 6,
+        "title": "Deadlock",
+        "releaseDate": "2026-10-28T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e7",
+        "episodeNumber": 7,
+        "title": "Immolation",
+        "releaseDate": "2026-11-03T06:30:00+05:30"
+      },
+      {
+        "id": "s17_e8",
+        "episodeNumber": 8,
+        "title": "Forever",
+        "releaseDate": "2026-11-11T06:30:00+05:30"
+      }
+    ]
   },
   {
     "id": "m40",
