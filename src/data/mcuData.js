@@ -1014,8 +1014,8 @@ export const mcuData = [
     "id": "m38",
     "title": "Avengers: Doomsday",
     "type": "movie",
-    "releaseDate": "2026-12-18",
-    "premiereTime": "2026-12-18T00:00:00-05:00",
+    "releaseDate": "2026-12-17",
+    "premiereTime": "2026-12-17T00:00:00-05:00",
     "timelineOrder": 53,
     "runtime": 0,
     "imageUrl": "https://pbs.twimg.com/media/HOHfPOvWAAADAcT?format=jpg&name=small"
